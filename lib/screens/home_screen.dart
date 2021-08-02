@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Response;
 import 'package:html_unescape/html_unescape.dart';
 import 'package:imazine/models/category.dart';
 import 'package:imazine/models/post.dart';
