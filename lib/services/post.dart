@@ -1,15 +1,12 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:imazine/models/post.dart';
 import 'package:imazine/utils/config.dart';
 
-import 'logger_utils.dart';
+import '../utils/logger.dart';
 
 Future getPost(
   int page,
   int perPage, {
-  int offset,
   bool hasEnvelope = false,
   int categoryId,
 }) async {
@@ -17,7 +14,6 @@ Future getPost(
     '_embed': null,
     'page': page,
     'per_page': perPage,
-    'offset': offset ?? 0,
     'categories': categoryId,
   };
 
@@ -34,7 +30,7 @@ Future getPost(
 
     if (response.statusCode == 200) {
       if (hasEnvelope) return response;
-      return postFromJson(json.encode(response.data));
+      return postFromJson(response.data);
     }
     logger.v(response);
   } catch (e) {
