@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/route_manager.dart';
 import 'package:imazine/screens/home_screen.dart';
+import 'package:imazine/screens/login.dart';
 import 'package:imazine/utils/config.dart';
 import 'package:imazine/utils/theme_manager.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -75,6 +76,6 @@ class _MyAppState extends State<MyApp> {
     //       ),
     // );
 
-    return HomeScreen();
+    return LoginScreen();
   }
 }
