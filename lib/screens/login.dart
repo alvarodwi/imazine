@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:imazine/screens/home_screen.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:imazine/services/login.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key key}) : super(key: key);
@@ -27,81 +28,100 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
           ),
-          MyCustomForm(),
+          LoginForm(),
         ],
       ),
     );
   }
 }
 
-class MyCustomForm extends StatefulWidget {
+class LoginForm extends StatefulWidget {
   @override
-  MyCustomFormState createState() {
-    return MyCustomFormState();
+  LoginFormState createState() {
+    return LoginFormState();
   }
 }
 
-class MyCustomFormState extends State<MyCustomForm> {
+class LoginFormState extends State<LoginForm> {
   String _npm;
   String _password;
 
+  Container formBuilder(String label, Function(String) onChanged,
+          {bool obscureText = false, String Function(String) validator}) =>
+      Container(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: TextFormField(
+          obscureText: obscureText,
+          style: TextStyle(fontFamily: 'OpenSans'),
+          decoration: InputDecoration(
+            border: UnderlineInputBorder(),
+            labelText: label,
+            labelStyle: TextStyle(
+              fontFamily: 'OpenSans',
+            ),
+          ),
+          onChanged: onChanged,
+          validator: validator,
+        ),
+      );
+
+  void login() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await loginRequest(_npm, _password).then((code) {
+      if (code == 200) {
+        prefs.setBool('isLoggedIn', true);
+        Get.off(() => HomeScreen());
+      } else {
+        Fluttertoast.showToast(
+          msg: "NPM/Password Salah",
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    Widget fieldsSection = Container(
+      padding: const EdgeInsets.all(32.0),
+      child: Column(
+        children: [
+          formBuilder("NPM", (text) => setState(() => _npm = text)),
+          formBuilder("Password", (text) => setState(() => _password = text),
+              obscureText: true),
+        ],
+      ),
+    );
+
+    Widget loginButton = Container(
+      padding: const EdgeInsets.only(left: 32.0, right: 32.0),
+      child: SizedBox(
+        width: double.infinity,
+        child: TextButton(
+          style: ButtonStyle(
+            overlayColor: MaterialStateProperty.resolveWith(
+                (states) => Colors.white.withOpacity(0.1)),
+            backgroundColor:
+                MaterialStateProperty.resolveWith((states) => Colors.amber),
+          ),
+          child: Text(
+            'Login',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
+              fontFamily: 'OpenSans',
+            ),
+          ),
+          onPressed: login,
+        ),
+      ),
+    );
+
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-          child: TextFormField(
-            style: TextStyle(
-              fontFamily: 'OpenSans',
-            ),
-            decoration: InputDecoration(
-              border: UnderlineInputBorder(),
-              labelText: "NPM",
-              labelStyle: TextStyle(
-                fontFamily: 'OpenSans',
-              ),
-            ),
-            onChanged: (text) {
-              setState(() {
-                _npm = text;
-              });
-            },
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-          child: TextFormField(
-            obscureText: true,
-            style: TextStyle(
-              fontFamily: 'OpenSans',
-            ),
-            decoration: InputDecoration(
-              border: UnderlineInputBorder(),
-              labelText: "Password",
-              labelStyle: TextStyle(
-                fontFamily: 'OpenSans',
-              ),
-            ),
-            onChanged: (text) {
-              setState(() {
-                _password = text;
-              });
-            },
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-          child: ElevatedButton(
-            child: Text('Login'),
-            onPressed: () {
-              if (_npm == "12345" && _password == "test") {
-                Get.to(() => HomeScreen());
-              }
-            },
-          ),
-        ),
+        fieldsSection,
+        loginButton,
       ],
     );
   }

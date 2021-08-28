@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/route_manager.dart';
-import 'package:imazine/screens/home_screen.dart';
 import 'package:imazine/screens/login.dart';
+import 'package:imazine/screens/home_screen.dart';
 import 'package:imazine/utils/config.dart';
 import 'package:imazine/utils/theme_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 Future<void> main() async {
@@ -47,14 +48,22 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  SharedPreferences _prefs;
+
   void initializeTheme() async {
     await getTheme();
+  }
+
+  Future getPrefs() async {
+    await SharedPreferences.getInstance()
+        .then((prefs) => setState(() => _prefs = prefs));
   }
 
   @override
   void initState() {
     super.initState();
     initializeTheme();
+    getPrefs();
   }
 
   @override
@@ -76,6 +85,12 @@ class _MyAppState extends State<MyApp> {
     //       ),
     // );
 
-    return LoginScreen();
+    return FutureBuilder(
+        future: getPrefs(),
+        builder: (context, snapshot) {
+          return (_prefs.getBool("isLoggedIn") ?? false)
+              ? HomeScreen()
+              : LoginScreen();
+        });
   }
 }
