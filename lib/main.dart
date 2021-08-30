@@ -53,7 +53,7 @@ class _MyAppState extends State<MyApp> {
     await getTheme();
   }
 
-  Future<bool> getPrefs() async {
+  Future<bool> getLoggedInStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return (await prefs.getBool("isLoggedIn")) ?? false;
   }
@@ -66,8 +66,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    if (ThemeMode.system == ThemeMode.dark) globalTheme = GlobalTheme.dark;
-
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -84,7 +82,7 @@ class _MyAppState extends State<MyApp> {
     // );
 
     return FutureBuilder(
-      future: getPrefs(),
+      future: getLoggedInStatus(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return snapshot.data ? HomeScreen() : LoginScreen();
