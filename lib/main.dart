@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/route_manager.dart';
-import 'package:imazine/screens/home_screen.dart';
-import 'package:imazine/utils/config.dart';
-import 'package:imazine/utils/theme_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/date_symbol_data_local.dart';
+
+import '../screens/login.dart';
+import '../screens/home_screen.dart';
+import '../utils/config.dart';
+import '../utils/theme_manager.dart';
 
 Future<void> main() async {
   await initializeDateFormatting("id_ID", null).then(
@@ -50,6 +53,11 @@ class _MyAppState extends State<MyApp> {
     await getTheme();
   }
 
+  Future<bool> getLoggedInStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return (await prefs.getBool("isLoggedIn")) ?? false;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -58,8 +66,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    if (ThemeMode.system == ThemeMode.dark) globalTheme = GlobalTheme.dark;
-
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -75,6 +81,14 @@ class _MyAppState extends State<MyApp> {
     //       ),
     // );
 
-    return HomeScreen();
+    return FutureBuilder(
+      future: getLoggedInStatus(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return snapshot.data ? HomeScreen() : LoginScreen();
+        }
+        return Scaffold();
+      },
+    );
   }
 }
