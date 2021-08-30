@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:html_unescape/html_unescape.dart';
-import 'package:imazine/models/post.dart';
-import 'package:imazine/widgets/load_image.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:intl/intl.dart';
+
+import '../models/post.dart';
+import '../widgets/load_image.dart';
 
 class DetailScreen extends StatelessWidget {
   final Post item;

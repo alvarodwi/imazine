@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:imazine/screens/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:imazine/services/login.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import '../services/login.dart';
+import '../screens/home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key key}) : super(key: key);

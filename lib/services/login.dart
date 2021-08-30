@@ -1,5 +1,6 @@
 import 'package:http/http.dart' as http;
-import 'package:imazine/utils/config.dart';
+
+import '../utils/config.dart';
 import '../utils/logger.dart';
 
 Future loginRequest(

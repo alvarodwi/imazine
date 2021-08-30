@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:imazine/models/post.dart';
-import 'package:imazine/utils/config.dart';
 
+import '../models/post.dart';
+import '../utils/config.dart';
 import '../utils/logger.dart';
 
 Future getPost(

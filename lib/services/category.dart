@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:imazine/models/category.dart';
-import 'package:imazine/utils/config.dart';
 
+import '../models/category.dart';
+import '../utils/config.dart';
 import '../utils/logger.dart';
 
 Future getCategories(

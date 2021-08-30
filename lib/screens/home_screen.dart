@@ -3,18 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:html_unescape/html_unescape.dart';
-import 'package:imazine/models/category.dart';
-import 'package:imazine/models/post.dart';
-import 'package:imazine/screens/about_app.dart';
-import 'package:imazine/screens/detail_post.dart';
-import 'package:imazine/screens/post_by_category.dart';
-import 'package:imazine/services/category.dart';
-import 'package:imazine/utils/logger.dart';
-import 'package:imazine/services/post.dart';
-import 'package:imazine/utils/theme_manager.dart';
-import 'package:imazine/widgets/load_image.dart';
-import 'package:imazine/widgets/loading_indicator.dart';
-import 'package:imazine/widgets/post_card.dart';
+
+import '../models/category.dart';
+import '../models/post.dart';
+import '../screens/about_app.dart';
+import '../screens/detail_post.dart';
+import '../screens/post_by_category.dart';
+import '../services/category.dart';
+import '../utils/logger.dart';
+import '../services/post.dart';
+import '../utils/theme_manager.dart';
+import '../widgets/load_image.dart';
+import '../widgets/loading_indicator.dart';
+import '../widgets/post_card.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);

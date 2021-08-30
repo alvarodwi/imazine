@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:imazine/models/category.dart';
-import 'package:imazine/models/post.dart';
-import 'package:imazine/utils/logger.dart';
-import 'package:imazine/services/post.dart';
-import 'package:imazine/widgets/loading_indicator.dart';
-import 'package:imazine/widgets/post_card.dart';
+
+import '../models/category.dart';
+import '../models/post.dart';
+import '../utils/logger.dart';
+import '../services/post.dart';
+import '../widgets/loading_indicator.dart';
+import '../widgets/post_card.dart';
 
 class PostByCategoryScreen extends StatefulWidget {
   final Category category;
