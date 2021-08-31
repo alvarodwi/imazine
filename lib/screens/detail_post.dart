@@ -66,6 +66,7 @@ class DetailScreen extends StatelessWidget {
                 data: """${item.content!.rendered}""",
 
                 // Optional parameters:
+                // TODO convert all below into new HTML widget parameter
 
                 // linkStyle: const TextStyle(
                 //   color: Colors.redAccent,

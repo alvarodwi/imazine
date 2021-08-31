@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 enum GlobalTheme { dark, light }
 
 GlobalTheme globalTheme = GlobalTheme.light;
 
 void setTheme(GlobalTheme theme) async {
-  SharedPreferences preferences = await SharedPreferences.getInstance();
   applyTheme(theme);
-  await preferences.setString(
-      'theme', theme == GlobalTheme.dark ? 'dark' : 'light');
+  await Hive.box('prefs')
+      .put('theme', theme == GlobalTheme.dark ? 'dark' : 'light');
 }
 
 void getTheme() async {
-  SharedPreferences preferences = await SharedPreferences.getInstance();
-  GlobalTheme theme = (await preferences.getString('theme') == 'dark'
-      ? GlobalTheme.dark
-      : GlobalTheme.light);
+  GlobalTheme theme =
+      (Hive.box('prefs').get('theme', defaultValue: 'light') == 'light'
+          ? GlobalTheme.dark
+          : GlobalTheme.light);
   applyTheme(theme);
 }
 

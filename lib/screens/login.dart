@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../services/login.dart';
 import '../screens/home_screen.dart';
@@ -67,10 +67,9 @@ class LoginFormState extends State<LoginForm> {
       );
 
   void login() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     await loginRequest(_npm, _password).then((code) {
       if (code == 200) {
-        prefs.setBool('isLoggedIn', true);
+        Hive.box('prefs').put('isLoggedIn', true);
         Get.off(() => HomeScreen());
       } else {
         Fluttertoast.showToast(
