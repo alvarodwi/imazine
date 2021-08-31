@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:html_unescape/html_unescape.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../models/category.dart';
 import '../models/post.dart';
 import '../screens/about_app.dart';
 import '../screens/detail_post.dart';
 import '../screens/post_by_category.dart';
+import '../screens/login.dart';
 import '../services/category.dart';
 import '../utils/logger.dart';
 import '../services/post.dart';
@@ -127,16 +129,24 @@ class _HomeScreenState extends State<HomeScreen> {
               setState(() {});
             },
           ),
-          Padding(
-            padding: const EdgeInsets.only(right: 5),
-            child: IconButton(
-                icon: Icon(
-                  Icons.info,
-                  color: globalTheme == GlobalTheme.dark
-                      ? Colors.white
-                      : Colors.black,
-                ),
-                onPressed: () => Get.to(() => AboutAppScreen())),
+          IconButton(
+            icon: Icon(
+              Icons.info,
+              color:
+                  globalTheme == GlobalTheme.dark ? Colors.white : Colors.black,
+            ),
+            onPressed: () => Get.to(() => AboutAppScreen()),
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.logout,
+              color:
+                  globalTheme == GlobalTheme.dark ? Colors.white : Colors.black,
+            ),
+            onPressed: () {
+              Hive.box('prefs').put('isLoggedIn', false);
+              Get.offAll(() => LoginScreen());
+            },
           ),
         ],
         title: Text(
