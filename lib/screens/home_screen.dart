@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:html_unescape/html_unescape.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -115,10 +114,11 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0,
         actions: <Widget>[
           IconButton(
-            icon: FaIcon(
+            icon: Icon(
               globalTheme == GlobalTheme.dark
-                  ? FontAwesomeIcons.toggleOn
-                  : FontAwesomeIcons.toggleOff,
+                  ? Icons.toggle_on
+                  : Icons.toggle_off,
+              size: 30,
               color:
                   globalTheme == GlobalTheme.dark ? Colors.white : Colors.black,
             ),
@@ -197,8 +197,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 return item.count == 0
                     ? Container()
                     : Padding(
-                        padding: const EdgeInsets.only(right: 15),
-                        child: FlatButton(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: ElevatedButton(
                           onPressed: () => Get.to(
                               () => PostByCategoryScreen(category: item)),
                           child: Text(
@@ -208,11 +208,15 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 1.5,
+                              color: globalTheme == GlobalTheme.dark
+                                  ? Colors.white
+                                  : Colors.black,
                             ),
                           ),
-                          color: Colors.black12,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
+                          style: ElevatedButton.styleFrom(
+                            primary: globalTheme == GlobalTheme.dark
+                                ? Colors.black12
+                                : Colors.grey[350],
                           ),
                         ),
                       );

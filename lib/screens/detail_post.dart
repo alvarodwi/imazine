@@ -20,9 +20,8 @@ class DetailScreen extends StatelessWidget {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
-              leading: FlatButton(
-                shape: CircleBorder(),
-                child: Icon(Icons.arrow_back),
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back),
                 onPressed: Get.back,
               ),
               expandedHeight: 300.0,
@@ -66,7 +65,7 @@ class DetailScreen extends StatelessWidget {
                 data: """${item.content!.rendered}""",
 
                 // Optional parameters:
-                // TODO convert all below into new HTML widget parameter
+                // TODO find out wtf these all are and convert them into new HTML widget parameters
 
                 // linkStyle: const TextStyle(
                 //   color: Colors.redAccent,

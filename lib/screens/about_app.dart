@@ -3,6 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/route_manager.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../utils/theme_manager.dart';
+
 class AboutAppScreen extends StatelessWidget {
   const AboutAppScreen({Key? key}) : super(key: key);
 
@@ -12,9 +14,8 @@ class AboutAppScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Get.theme.canvasColor,
         elevation: 0,
-        leading: FlatButton(
-          shape: CircleBorder(),
-          child: Icon(Icons.arrow_back),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
           onPressed: Get.back,
         ),
         // title: Text(
@@ -138,35 +139,45 @@ class AboutAppScreen extends StatelessWidget {
     }
   }
 
-  FlatButton buildSocialMediaBtn(
+  Padding buildSocialMediaBtn(
       IconData iconData, String title, Function onPressed,
       [colors]) {
-    return FlatButton(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7.5)),
-      padding: EdgeInsets.all(12.5),
-      onPressed: onPressed as void Function()?,
-      child: Row(
-        children: [
-          FaIcon(
-            iconData,
-            color: colors ?? Colors.grey,
-          ),
-          SizedBox(width: 25),
-          Expanded(
-            child: Text(
-              title,
-              style: TextStyle(
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.w600,
+    return Padding(
+      padding: EdgeInsets.only(left: 12.5, right: 12.5, bottom: 12.5),
+      child: TextButton(
+        style: ButtonStyle(
+          overlayColor: MaterialStateProperty.resolveWith((states) =>
+              globalTheme == GlobalTheme.dark
+                  ? Colors.white.withOpacity(0.1)
+                  : Colors.grey.withOpacity(0.2)),
+        ),
+        onPressed: onPressed as void Function()?,
+        child: Row(
+          children: [
+            FaIcon(
+              iconData,
+              color: colors ?? Colors.grey,
+            ),
+            SizedBox(width: 25),
+            Expanded(
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.w600,
+                  color: globalTheme == GlobalTheme.dark
+                      ? Colors.white
+                      : Colors.black,
+                ),
               ),
             ),
-          ),
-          Icon(
-            Icons.arrow_forward_ios,
-            color: Colors.grey,
-            size: 15,
-          ),
-        ],
+            Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.grey,
+              size: 15,
+            ),
+          ],
+        ),
       ),
     );
   }
