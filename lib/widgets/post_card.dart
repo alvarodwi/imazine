@@ -7,8 +7,8 @@ import 'package:imazine/widgets/load_image.dart';
 
 class PostCard extends StatelessWidget {
   const PostCard({
-    Key key,
-    @required this.item,
+    Key? key,
+    required this.item,
   }) : super(key: key);
 
   final Post item;
@@ -31,7 +31,7 @@ class PostCard extends StatelessWidget {
                 child: FittedBox(
                   fit: BoxFit.cover,
                   child: Hero(
-                    tag: item.jetpackFeaturedMediaUrl,
+                    tag: item.jetpackFeaturedMediaUrl!,
                     child: loadImage(
                       item.jetpackFeaturedMediaUrl,
                       isShowLoading: false,
@@ -50,7 +50,7 @@ class PostCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    item.embedded.wpTerm[0][0].name.toUpperCase(),
+                    item.embedded!.wpTerm![0][0].name!.toUpperCase(),
                     style: TextStyle(
                       fontFamily: 'OpenSans',
                       fontSize: 11,
@@ -63,7 +63,7 @@ class PostCard extends StatelessWidget {
                   Container(
                     width: double.maxFinite,
                     child: Text(
-                      HtmlUnescape().convert(item.title.rendered),
+                      HtmlUnescape().convert(item.title!.rendered!),
                       style: TextStyle(
                         fontFamily: 'Montserrat',
                         fontSize: 15,

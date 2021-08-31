@@ -8,7 +8,7 @@ Future getPost(
   int page,
   int perPage, {
   bool hasEnvelope = false,
-  int categoryId,
+  int? categoryId,
 }) async {
   Map<String, dynamic> params = {
     '_embed': null,

@@ -19,16 +19,16 @@ class Post {
     this.embedded,
   });
 
-  int id;
-  DateTime date;
-  DateTime modified;
-  String slug;
-  Title title;
-  Content content;
-  Content excerpt;
-  List<dynamic> tags;
-  String jetpackFeaturedMediaUrl;
-  Embedded embedded;
+  int? id;
+  DateTime? date;
+  DateTime? modified;
+  String? slug;
+  Title? title;
+  Content? content;
+  Content? excerpt;
+  List<dynamic>? tags;
+  String? jetpackFeaturedMediaUrl;
+  Embedded? embedded;
 
   factory Post.fromJson(Map<String, dynamic> json) => Post(
         id: json["id"],
@@ -52,8 +52,8 @@ class Content {
     this.protected,
   });
 
-  String rendered;
-  bool protected;
+  String? rendered;
+  bool? protected;
 
   factory Content.fromJson(Map<String, dynamic> json) => Content(
         rendered: json["rendered"],
@@ -73,9 +73,9 @@ class Embedded {
     this.wpTerm,
   });
 
-  List<Author> author;
-  List<WpFeaturedmedia> wpFeaturedmedia;
-  List<List<WpTerm>> wpTerm;
+  List<Author>? author;
+  List<WpFeaturedmedia>? wpFeaturedmedia;
+  List<List<WpTerm>>? wpTerm;
 
   factory Embedded.fromJson(Map<String, dynamic> json) => Embedded(
         author:
@@ -100,13 +100,13 @@ class Author {
     this.avatarUrls,
   });
 
-  int id;
-  String name;
-  String url;
-  String description;
-  String link;
-  String slug;
-  Map<String, String> avatarUrls;
+  int? id;
+  String? name;
+  String? url;
+  String? description;
+  String? link;
+  String? slug;
+  Map<String, String>? avatarUrls;
 
   factory Author.fromJson(Map<String, dynamic> json) => Author(
         id: json["id"],
@@ -127,7 +127,7 @@ class Author {
         "link": link,
         "slug": slug,
         "avatar_urls":
-            Map.from(avatarUrls).map((k, v) => MapEntry<String, dynamic>(k, v)),
+            Map.from(avatarUrls!).map((k, v) => MapEntry<String, dynamic>(k, v)),
       };
 }
 
@@ -143,14 +143,14 @@ class WpFeaturedmedia {
     this.sourceUrl,
   });
 
-  int id;
-  DateTime date;
-  String link;
-  String altText;
-  String mediaType;
-  String mimeType;
-  MediaDetails mediaDetails;
-  String sourceUrl;
+  int? id;
+  DateTime? date;
+  String? link;
+  String? altText;
+  String? mediaType;
+  String? mimeType;
+  MediaDetails? mediaDetails;
+  String? sourceUrl;
 
   factory WpFeaturedmedia.fromJson(Map<String, dynamic> json) =>
       WpFeaturedmedia(
@@ -174,10 +174,10 @@ class MediaDetails {
     this.sizes,
   });
 
-  int width;
-  int height;
-  String file;
-  Sizes sizes;
+  int? width;
+  int? height;
+  String? file;
+  Sizes? sizes;
 
   factory MediaDetails.fromJson(Map<String, dynamic> json) => MediaDetails(
         width: json["width"],
@@ -194,10 +194,10 @@ class Sizes {
     this.large,
   });
 
-  Large thumbnail;
-  Large medium;
-  Large mediumLarge;
-  Large large;
+  Large? thumbnail;
+  Large? medium;
+  Large? mediumLarge;
+  Large? large;
 
   factory Sizes.fromJson(Map<String, dynamic> json) => Sizes(
         thumbnail: Large.fromJson(json["thumbnail"]),
@@ -207,10 +207,10 @@ class Sizes {
       );
 
   Map<String, dynamic> toJson() => {
-        "thumbnail": thumbnail.toJson(),
-        "medium": medium.toJson(),
-        "medium_large": mediumLarge.toJson(),
-        "large": large.toJson(),
+        "thumbnail": thumbnail!.toJson(),
+        "medium": medium!.toJson(),
+        "medium_large": mediumLarge!.toJson(),
+        "large": large!.toJson(),
       };
 }
 
@@ -223,11 +223,11 @@ class Large {
     this.sourceUrl,
   });
 
-  String file;
-  int width;
-  int height;
-  String mimeType;
-  String sourceUrl;
+  String? file;
+  int? width;
+  int? height;
+  String? mimeType;
+  String? sourceUrl;
 
   factory Large.fromJson(Map<String, dynamic> json) => Large(
         file: json["file"],
@@ -255,11 +255,11 @@ class WpTerm {
     this.taxonomy,
   });
 
-  int id;
-  String link;
-  String name;
-  String slug;
-  String taxonomy;
+  int? id;
+  String? link;
+  String? name;
+  String? slug;
+  String? taxonomy;
 
   factory WpTerm.fromJson(Map<String, dynamic> json) => WpTerm(
         id: json["id"],
@@ -283,7 +283,7 @@ class Title {
     this.rendered,
   });
 
-  String rendered;
+  String? rendered;
 
   factory Title.fromJson(Map<String, dynamic> json) => Title(
         rendered: json["rendered"],

@@ -18,7 +18,7 @@ import '../widgets/loading_indicator.dart';
 import '../widgets/post_card.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -27,15 +27,15 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final int topPost = 5;
 
-  int totalPage = 1;
+  int? totalPage = 1;
   int currentPage = 1;
 
   bool isLoading = false;
 
-  List<Post> listPost;
-  List<Category> listCategory;
+  List<Post>? listPost;
+  List<Category>? listCategory;
 
-  ScrollController controller;
+  ScrollController? controller;
 
   Future fetchPost() async {
     try {
@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
           if (listPost == null) {
             listPost = postFromJson(res.data['body']);
           } else {
-            listPost.addAll(postFromJson(res.data['body']));
+            listPost!.addAll(postFromJson(res.data['body']));
           }
           print(currentPage);
           totalPage = res.data['headers']['X-WP-TotalPages'];
@@ -83,8 +83,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void _scrollListener() {
     // print(controller.position.extentAfter);
     print(currentPage);
-    if (controller.position.extentAfter < 250 &&
-        currentPage <= totalPage &&
+    if (controller!.position.extentAfter < 250 &&
+        currentPage <= totalPage! &&
         !isLoading) {
       fetchPost();
     }
@@ -102,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void dispose() {
     super.dispose();
-    controller.dispose();
+    controller!.dispose();
   }
 
   @override
@@ -136,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ? Colors.white
                       : Colors.black,
                 ),
-                onPressed: () => Get.to(AboutAppScreen())),
+                onPressed: () => Get.to(() => AboutAppScreen())),
           ),
         ],
         title: Text(
@@ -182,17 +182,17 @@ class _HomeScreenState extends State<HomeScreen> {
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemBuilder: (BuildContext context, int index) {
-                Category item = listCategory[index];
+                Category item = listCategory![index];
 
                 return item.count == 0
                     ? Container()
                     : Padding(
                         padding: const EdgeInsets.only(right: 15),
                         child: FlatButton(
-                          onPressed: () =>
-                              Get.to(PostByCategoryScreen(category: item)),
+                          onPressed: () => Get.to(
+                              () => PostByCategoryScreen(category: item)),
                           child: Text(
-                            '${item.name.toUpperCase()}',
+                            '${item.name!.toUpperCase()}',
                             style: TextStyle(
                               fontFamily: 'Montserrat',
                               fontSize: 12,
@@ -219,9 +219,9 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: EdgeInsets.fromLTRB(20, 25, 25, 25),
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
-      itemCount: listPost.sublist(topPost).length,
+      itemCount: listPost!.sublist(topPost).length,
       itemBuilder: (context, index) {
-        Post item = listPost[index + topPost];
+        Post item = listPost![index + topPost];
 
         return PostCard(item: item);
       },
@@ -233,10 +233,10 @@ class _HomeScreenState extends State<HomeScreen> {
       scrollDirection: Axis.horizontal,
       child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
         SizedBox(width: 10),
-        ...listPost.sublist(0, topPost).map((item) {
+        ...listPost!.sublist(0, topPost).map((item) {
           return GestureDetector(
             onTap: () {
-              Get.to(DetailScreen(item: item));
+              Get.to(() => DetailScreen(item: item));
             },
             child: Container(
               width: 250,
@@ -249,7 +249,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Hero(
-                        tag: item.jetpackFeaturedMediaUrl,
+                        tag: item.jetpackFeaturedMediaUrl!,
                         child: loadImage(
                           item.jetpackFeaturedMediaUrl,
                           isShowLoading: false,
@@ -259,7 +259,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   SizedBox(height: 15),
                   Text(
-                    item.embedded.wpTerm[0][0].name.toUpperCase(),
+                    item.embedded!.wpTerm![0][0].name!.toUpperCase(),
                     style: TextStyle(
                       fontFamily: 'OpenSans',
                       fontSize: 11,
@@ -272,7 +272,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Container(
                     width: double.maxFinite,
                     child: Text(
-                      HtmlUnescape().convert(item.title.rendered),
+                      HtmlUnescape().convert(item.title!.rendered!),
                       style: TextStyle(
                         fontFamily: 'Montserrat',
                         fontSize: 16.5,

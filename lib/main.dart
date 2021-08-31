@@ -17,7 +17,7 @@ Future<void> main() async {
         debugShowCheckedModeBanner: false,
         builder: (context, child) => ScrollConfiguration(
           behavior: MyScrollBehaviour(),
-          child: child,
+          child: child!,
         ),
         theme: ThemeData.light().copyWith(
           primaryColor: Colors.amber,
@@ -49,10 +49,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  void initializeTheme() async {
-    await getTheme();
-  }
-
   Future<bool> getLoggedInStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return (await prefs.getBool("isLoggedIn")) ?? false;
@@ -61,7 +57,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    initializeTheme();
+    getTheme();
   }
 
   @override
@@ -83,9 +79,9 @@ class _MyAppState extends State<MyApp> {
 
     return FutureBuilder(
       future: getLoggedInStatus(),
-      builder: (context, snapshot) {
+      builder: (context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.hasData) {
-          return snapshot.data ? HomeScreen() : LoginScreen();
+          return (snapshot.data ?? false) ? HomeScreen() : LoginScreen();
         }
         return Scaffold();
       },

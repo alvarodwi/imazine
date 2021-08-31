@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-Widget loadImage(String linkGambar,
-    {bool isShowLoading = true, Alignment alignment}) {
+Widget loadImage(String? linkGambar,
+    {bool isShowLoading = true, Alignment? alignment}) {
   if (linkGambar == null) {
     return Icon(Icons.image);
   } else {

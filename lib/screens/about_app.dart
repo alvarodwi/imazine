@@ -4,7 +4,7 @@ import 'package:get/route_manager.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutAppScreen extends StatelessWidget {
-  const AboutAppScreen({Key key}) : super(key: key);
+  const AboutAppScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +144,7 @@ class AboutAppScreen extends StatelessWidget {
     return FlatButton(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7.5)),
       padding: EdgeInsets.all(12.5),
-      onPressed: onPressed,
+      onPressed: onPressed as void Function()?,
       child: Row(
         children: [
           FaIcon(
