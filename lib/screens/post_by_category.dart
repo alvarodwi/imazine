@@ -1,16 +1,17 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:imazine/models/category.dart';
-import 'package:imazine/models/post.dart';
-import 'package:imazine/utils/logger.dart';
-import 'package:imazine/services/post.dart';
-import 'package:imazine/widgets/loading_indicator.dart';
-import 'package:imazine/widgets/post_card.dart';
+
+import '../models/category.dart';
+import '../models/post.dart';
+import '../utils/logger.dart';
+import '../services/post.dart';
+import '../widgets/loading_indicator.dart';
+import '../widgets/post_card.dart';
 
 class PostByCategoryScreen extends StatefulWidget {
-  final Category category;
-  PostByCategoryScreen({Key key, this.category}) : super(key: key);
+  final Category? category;
+  PostByCategoryScreen({Key? key, this.category}) : super(key: key);
 
   @override
   _PostByCategoryScreenState createState() => _PostByCategoryScreenState();
@@ -19,22 +20,22 @@ class PostByCategoryScreen extends StatefulWidget {
 class _PostByCategoryScreenState extends State<PostByCategoryScreen> {
   final int topPost = 5;
 
-  int totalPage = 1;
+  int? totalPage = 1;
   int currentPage = 1;
 
   bool isLoading = false;
 
-  List<Post> listPost;
-  List<Category> listCategory;
+  List<Post>? listPost;
+  List<Category>? listCategory;
 
-  ScrollController controller;
+  ScrollController? controller;
 
   Future fetchPost() async {
     try {
       isLoading = true;
       if (mounted) setState(() {});
       await getPost(currentPage, 10,
-              hasEnvelope: true, categoryId: widget.category.id)
+              hasEnvelope: true, categoryId: widget.category!.id)
           .then((res) {
         if (res is List<Post>) {
           listPost = res;
@@ -42,7 +43,7 @@ class _PostByCategoryScreenState extends State<PostByCategoryScreen> {
           if (listPost == null) {
             listPost = postFromJson(res.data['body']);
           } else {
-            listPost.addAll(postFromJson(res.data['body']));
+            listPost!.addAll(postFromJson(res.data['body']));
           }
           print(currentPage);
           totalPage = res.data['headers']['X-WP-TotalPages'];
@@ -62,8 +63,8 @@ class _PostByCategoryScreenState extends State<PostByCategoryScreen> {
   void _scrollListener() {
     // print(controller.position.extentAfter);
     print(currentPage);
-    if (controller.position.extentAfter < 250 &&
-        currentPage <= totalPage &&
+    if (controller!.position.extentAfter < 250 &&
+        currentPage <= totalPage! &&
         !isLoading) {
       fetchPost();
     }
@@ -79,7 +80,7 @@ class _PostByCategoryScreenState extends State<PostByCategoryScreen> {
   @override
   void dispose() {
     super.dispose();
-    controller.dispose();
+    controller!.dispose();
   }
 
   @override
@@ -92,11 +93,11 @@ class _PostByCategoryScreenState extends State<PostByCategoryScreen> {
           color: Get.theme.primaryColor,
         ),
         title: Text(
-          '${widget.category.name}',
+          '${widget.category!.name}',
           style: TextStyle(
             fontFamily: 'Montserrat',
             fontSize: 20,
-            color: Get.theme.textTheme.headline1.color,
+            color: Get.theme.textTheme.headline1!.color,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -127,9 +128,9 @@ class _PostByCategoryScreenState extends State<PostByCategoryScreen> {
       padding: EdgeInsets.fromLTRB(20, 25, 25, 25),
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
-      itemCount: listPost.length,
+      itemCount: listPost!.length,
       itemBuilder: (context, index) {
-        Post item = listPost[index];
+        Post item = listPost![index];
 
         return PostCard(item: item);
       },

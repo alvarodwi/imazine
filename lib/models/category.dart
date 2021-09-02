@@ -16,13 +16,13 @@ class Category {
     this.taxonomy,
   });
 
-  int id;
-  int count;
-  String description;
-  String link;
-  String name;
-  String slug;
-  String taxonomy;
+  int? id;
+  int? count;
+  String? description;
+  String? link;
+  String? name;
+  String? slug;
+  String? taxonomy;
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
         id: json["id"],

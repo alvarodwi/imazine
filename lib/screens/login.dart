@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:imazine/screens/home_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:imazine/services/login.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
+import '../services/login.dart';
+import '../screens/home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key key}) : super(key: key);
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,11 +44,11 @@ class LoginForm extends StatefulWidget {
 }
 
 class LoginFormState extends State<LoginForm> {
-  String _npm;
-  String _password;
+  String? _npm;
+  String? _password;
 
   Container formBuilder(String label, Function(String) onChanged,
-          {bool obscureText = false, String Function(String) validator}) =>
+          {bool obscureText = false, String Function(String?)? validator}) =>
       Container(
         padding: const EdgeInsets.only(bottom: 10),
         child: TextFormField(
@@ -66,10 +67,9 @@ class LoginFormState extends State<LoginForm> {
       );
 
   void login() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     await loginRequest(_npm, _password).then((code) {
       if (code == 200) {
-        prefs.setBool('isLoggedIn', true);
+        Hive.box('prefs').put('isLoggedIn', true);
         Get.off(() => HomeScreen());
       } else {
         Fluttertoast.showToast(

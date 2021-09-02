@@ -1,23 +1,25 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:html_unescape/html_unescape.dart';
-import 'package:imazine/models/category.dart';
-import 'package:imazine/models/post.dart';
-import 'package:imazine/screens/about_app.dart';
-import 'package:imazine/screens/detail_post.dart';
-import 'package:imazine/screens/post_by_category.dart';
-import 'package:imazine/services/category.dart';
-import 'package:imazine/utils/logger.dart';
-import 'package:imazine/services/post.dart';
-import 'package:imazine/utils/theme_manager.dart';
-import 'package:imazine/widgets/load_image.dart';
-import 'package:imazine/widgets/loading_indicator.dart';
-import 'package:imazine/widgets/post_card.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
+import '../models/category.dart';
+import '../models/post.dart';
+import '../screens/about_app.dart';
+import '../screens/detail_post.dart';
+import '../screens/post_by_category.dart';
+import '../screens/login.dart';
+import '../services/category.dart';
+import '../utils/logger.dart';
+import '../services/post.dart';
+import '../utils/theme_manager.dart';
+import '../widgets/load_image.dart';
+import '../widgets/loading_indicator.dart';
+import '../widgets/post_card.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -26,15 +28,15 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final int topPost = 5;
 
-  int totalPage = 1;
+  int? totalPage = 1;
   int currentPage = 1;
 
   bool isLoading = false;
 
-  List<Post> listPost;
-  List<Category> listCategory;
+  List<Post>? listPost;
+  List<Category>? listCategory;
 
-  ScrollController controller;
+  ScrollController? controller;
 
   Future fetchPost() async {
     try {
@@ -47,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
           if (listPost == null) {
             listPost = postFromJson(res.data['body']);
           } else {
-            listPost.addAll(postFromJson(res.data['body']));
+            listPost!.addAll(postFromJson(res.data['body']));
           }
           print(currentPage);
           totalPage = res.data['headers']['X-WP-TotalPages'];
@@ -82,8 +84,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void _scrollListener() {
     // print(controller.position.extentAfter);
     print(currentPage);
-    if (controller.position.extentAfter < 250 &&
-        currentPage <= totalPage &&
+    if (controller!.position.extentAfter < 250 &&
+        currentPage <= totalPage! &&
         !isLoading) {
       fetchPost();
     }
@@ -101,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void dispose() {
     super.dispose();
-    controller.dispose();
+    controller!.dispose();
   }
 
   @override
@@ -112,10 +114,11 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0,
         actions: <Widget>[
           IconButton(
-            icon: FaIcon(
+            icon: Icon(
               globalTheme == GlobalTheme.dark
-                  ? FontAwesomeIcons.toggleOn
-                  : FontAwesomeIcons.toggleOff,
+                  ? Icons.toggle_on
+                  : Icons.toggle_off,
+              size: 30,
               color:
                   globalTheme == GlobalTheme.dark ? Colors.white : Colors.black,
             ),
@@ -126,16 +129,24 @@ class _HomeScreenState extends State<HomeScreen> {
               setState(() {});
             },
           ),
-          Padding(
-            padding: const EdgeInsets.only(right: 5),
-            child: IconButton(
-                icon: Icon(
-                  Icons.info,
-                  color: globalTheme == GlobalTheme.dark
-                      ? Colors.white
-                      : Colors.black,
-                ),
-                onPressed: () => Get.to(AboutAppScreen())),
+          IconButton(
+            icon: Icon(
+              Icons.info,
+              color:
+                  globalTheme == GlobalTheme.dark ? Colors.white : Colors.black,
+            ),
+            onPressed: () => Get.to(() => AboutAppScreen()),
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.logout,
+              color:
+                  globalTheme == GlobalTheme.dark ? Colors.white : Colors.black,
+            ),
+            onPressed: () {
+              Hive.box('prefs').put('isLoggedIn', false);
+              Get.offAll(() => LoginScreen());
+            },
           ),
         ],
         title: Text(
@@ -181,27 +192,31 @@ class _HomeScreenState extends State<HomeScreen> {
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemBuilder: (BuildContext context, int index) {
-                Category item = listCategory[index];
+                Category item = listCategory![index];
 
                 return item.count == 0
                     ? Container()
                     : Padding(
-                        padding: const EdgeInsets.only(right: 15),
-                        child: FlatButton(
-                          onPressed: () =>
-                              Get.to(PostByCategoryScreen(category: item)),
+                        padding: const EdgeInsets.only(right: 20),
+                        child: ElevatedButton(
+                          onPressed: () => Get.to(
+                              () => PostByCategoryScreen(category: item)),
                           child: Text(
-                            '${item.name.toUpperCase()}',
+                            '${item.name!.toUpperCase()}',
                             style: TextStyle(
                               fontFamily: 'Montserrat',
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 1.5,
+                              color: globalTheme == GlobalTheme.dark
+                                  ? Colors.white
+                                  : Colors.black,
                             ),
                           ),
-                          color: Colors.black12,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
+                          style: ElevatedButton.styleFrom(
+                            primary: globalTheme == GlobalTheme.dark
+                                ? Colors.black12
+                                : Colors.grey[350],
                           ),
                         ),
                       );
@@ -218,9 +233,9 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: EdgeInsets.fromLTRB(20, 25, 25, 25),
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
-      itemCount: listPost.sublist(topPost).length,
+      itemCount: listPost!.sublist(topPost).length,
       itemBuilder: (context, index) {
-        Post item = listPost[index + topPost];
+        Post item = listPost![index + topPost];
 
         return PostCard(item: item);
       },
@@ -232,10 +247,10 @@ class _HomeScreenState extends State<HomeScreen> {
       scrollDirection: Axis.horizontal,
       child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
         SizedBox(width: 10),
-        ...listPost.sublist(0, topPost).map((item) {
+        ...listPost!.sublist(0, topPost).map((item) {
           return GestureDetector(
             onTap: () {
-              Get.to(DetailScreen(item: item));
+              Get.to(() => DetailScreen(item: item));
             },
             child: Container(
               width: 250,
@@ -248,7 +263,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Hero(
-                        tag: item.jetpackFeaturedMediaUrl,
+                        tag: item.jetpackFeaturedMediaUrl!,
                         child: loadImage(
                           item.jetpackFeaturedMediaUrl,
                           isShowLoading: false,
@@ -258,7 +273,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   SizedBox(height: 15),
                   Text(
-                    item.embedded.wpTerm[0][0].name.toUpperCase(),
+                    item.embedded!.wpTerm![0][0].name!.toUpperCase(),
                     style: TextStyle(
                       fontFamily: 'OpenSans',
                       fontSize: 11,
@@ -271,7 +286,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Container(
                     width: double.maxFinite,
                     child: Text(
-                      HtmlUnescape().convert(item.title.rendered),
+                      HtmlUnescape().convert(item.title!.rendered!),
                       style: TextStyle(
                         fontFamily: 'Montserrat',
                         fontSize: 16.5,

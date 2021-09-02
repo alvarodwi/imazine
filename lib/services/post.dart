@@ -1,14 +1,14 @@
 import 'package:dio/dio.dart';
-import 'package:imazine/models/post.dart';
-import 'package:imazine/utils/config.dart';
 
+import '../models/post.dart';
+import '../utils/config.dart';
 import '../utils/logger.dart';
 
 Future getPost(
   int page,
   int perPage, {
   bool hasEnvelope = false,
-  int categoryId,
+  int? categoryId,
 }) async {
   Map<String, dynamic> params = {
     '_embed': null,
