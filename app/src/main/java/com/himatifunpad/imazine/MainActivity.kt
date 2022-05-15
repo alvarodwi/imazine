@@ -1,11 +1,13 @@
 package com.himatifunpad.imazine
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.himatifunpad.imazine_android.R
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
+    Thread.sleep(1000)
+    setTheme(R.style.Theme_Imazine)
+    // inflate
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
   }

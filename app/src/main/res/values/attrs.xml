@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <attr name="emphasisHighAlpha" format="float" />
+  <attr name="emphasisMediumAlpha" format="float" />
+  <attr name="emphasisDisabledAlpha" format="float" />
+
+  <dimen name="dimen_small">4dp</dimen>
+  <dimen name="dimen_normal">8dp</dimen>
+  <dimen name="dimen_medium">12dp</dimen>
+  <dimen name="dimen_middle">16dp</dimen>
+  <dimen name="dimen_slarge">20dp</dimen>
+  <dimen name="dimen_large">24dp</dimen>
+  <dimen name="dimen_xlarge">32dp</dimen>
+  <dimen name="dimen_xxlarge">40dp</dimen>
+  <dimen name="dimen_xxxlarge">64dp</dimen>
+  <dimen name="dimen_ultra_large">90dp</dimen>
+  <dimen name="dimen_ultra_plus_large">160dp</dimen>
+</resources>

@@ -1,3 +1,10 @@
 <resources>
   <string name="app_name">Imazine</string>
+  <string name="home_something_wrong">Something wrong happened…</string>
+  <string name="retry">Retry</string>
+  <string name="home_latest_section_title">Latest Posts</string>
+  <string name="home_all_post_section_title">All Posts</string>
+  <string name="load_error">Can\'t load content</string>
+  <string name="login_error">Wrong Username/Password</string>
+  <string name="cd_navigate_up">Navigate up</string>
 </resources>
