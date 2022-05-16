@@ -4,15 +4,15 @@
   <attr name="emphasisMediumAlpha" format="float" />
   <attr name="emphasisDisabledAlpha" format="float" />
 
-  <dimen name="dimen_small">4dp</dimen>
-  <dimen name="dimen_normal">8dp</dimen>
-  <dimen name="dimen_medium">12dp</dimen>
-  <dimen name="dimen_middle">16dp</dimen>
-  <dimen name="dimen_slarge">20dp</dimen>
-  <dimen name="dimen_large">24dp</dimen>
-  <dimen name="dimen_xlarge">32dp</dimen>
-  <dimen name="dimen_xxlarge">40dp</dimen>
-  <dimen name="dimen_xxxlarge">64dp</dimen>
-  <dimen name="dimen_ultra_large">90dp</dimen>
-  <dimen name="dimen_ultra_plus_large">160dp</dimen>
+  <dimen name="dimen_4dp">4dp</dimen>
+  <dimen name="dimen_8dp">8dp</dimen>
+  <dimen name="dimen_12dp">12dp</dimen>
+  <dimen name="dimen_16dp">16dp</dimen>
+  <dimen name="dimen_20dp">20dp</dimen>
+  <dimen name="dimen_24dp">24dp</dimen>
+  <dimen name="dimen_32dp">32dp</dimen>
+  <dimen name="dimen_40dp">40dp</dimen>
+  <dimen name="dimen_64dp">64dp</dimen>
+  <dimen name="dimen_90dp">80dp</dimen>
+  <dimen name="dimen_160dp">160dp</dimen>
 </resources>

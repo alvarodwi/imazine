@@ -5,19 +5,18 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.himatifunpad.imazine.R
 import com.himatifunpad.imazine.databinding.FragmentAuthBinding
 import com.himatifunpad.imazine.ext.viewBinding
 import com.himatifunpad.imazine.ui.auth.AuthViewModel.AuthEvent
 import com.himatifunpad.imazine.util.base.BaseEvent.ShowErrorMessage
 import com.himatifunpad.imazine.util.base.BaseFragment
-import com.himatifunpad.imazine.util.ext.createSnackbar
 import com.himatifunpad.imazine.util.ext.snackbar
 import com.himatifunpad.imazine.util.ext.trimmedText
-import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import logcat.logcat
 
 class AuthFragment : BaseFragment(R.layout.fragment_auth) {
   private val binding by viewBinding<FragmentAuthBinding>()
@@ -36,6 +35,8 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
           AuthEvent.LoginSuccess -> {
             toggleLoading(false)
             snackbar("Login Success")
+            delay(1000)
+            moveToHome()
           }
           is ShowErrorMessage -> {
             toggleLoading(false)
@@ -45,13 +46,7 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
       }.launchIn(viewLifecycleOwner.lifecycleScope)
   }
 
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-    setupView()
-  }
-
   override fun setupView() {
-
     btnLogin.setOnClickListener { onBtnLoginClick() }
   }
 
@@ -64,5 +59,11 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
     val npm = tfUsername.trimmedText()
     val password = tfPassword.trimmedText()
     viewModel.doLogin(npm, password)
+  }
+
+  private fun moveToHome() {
+    findNavController().navigate(
+      AuthFragmentDirections.actionToHome()
+    )
   }
 }

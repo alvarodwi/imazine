@@ -11,4 +11,9 @@
   <string name="hint_password">Password</string>
   <string name="btn_login">Login</string>
   <string name="hint_login">Gunakan akun apps.himatif.org untuk melanjutkan</string>
+  <string name="settings">Settings</string>
+  <string name="cd_iv_latest_post">Latest Post Image</string>
+  <string name="lbl_latest_post">Latest Post</string>
+  <string name="lbl_all_posts">All Posts</string>
+  <string name="cd_iv_post_img">Post Image</string>
 </resources>

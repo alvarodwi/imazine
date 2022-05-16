@@ -2,16 +2,16 @@
 <resources>
   <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
     <item name="cornerFamily">rounded</item>
-    <item name="cornerSize">@dimen/dimen_normal</item>
+    <item name="cornerSize">@dimen/dimen_8dp</item>
   </style>
 
   <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
     <item name="cornerFamily">rounded</item>
-    <item name="cornerSize">@dimen/dimen_normal</item>
+    <item name="cornerSize">@dimen/dimen_8dp</item>
   </style>
 
   <style name="ShapeAppearance.App.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
     <item name="cornerFamily">rounded</item>
-    <item name="cornerSize">@dimen/dimen_middle</item>
+    <item name="cornerSize">@dimen/dimen_16dp</item>
   </style>
 </resources>
