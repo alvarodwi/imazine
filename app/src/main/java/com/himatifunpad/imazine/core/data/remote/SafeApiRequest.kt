@@ -2,26 +2,27 @@ package com.himatifunpad.imazine.core.data.remote
 
 import com.himatifunpad.imazine.util.ApiException
 import org.json.JSONException
-import org.json.JSONObject
 import retrofit2.Response
 
 abstract class SafeApiRequest {
-  suspend fun<T: Any> apiRequest(call: suspend () -> Response<T>) : T{
+  suspend fun <T : Any> apiRequest(
+    call: suspend () -> Response<T>,
+    decodeJson: suspend (String) -> String
+  ): T {
     val response = call.invoke()
-    if(response.isSuccessful){
+    if (response.isSuccessful) {
       return response.body()!!
-    }else{
+    } else {
       val error = response.errorBody()?.string()
       val message = StringBuilder()
-      error?.let{
-        try{
-          message.append(JSONObject(it).getString("message"))
-        }catch(e: JSONException){ }
-        message.append("\n")
+      error?.let {
+        try {
+          message.append(decodeJson(it))
+        } catch (e: JSONException) {
+          e.printStackTrace()
+        }
       }
-      message.append("Error Code: ${response.code()}")
       throw ApiException(message.toString())
     }
   }
-
 }

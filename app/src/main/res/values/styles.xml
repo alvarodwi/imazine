@@ -7,8 +7,8 @@
   </style>
 
   <style name="ThemeOverlay.Imazine.Snackbar" parent="">
-    <item name="colorPrimary">?attr/colorSurface</item>
-    <item name="colorOnSurface">?attr/colorOnSurface</item>
+    <item name="colorPrimary">@color/amber_500</item>
+    <item name="colorOnSurface">@color/text_color</item>
   </style>
 
   <style name="Widget.Imazine.SnackbarButton" parent="Widget.MaterialComponents.Button.TextButton.Snackbar">

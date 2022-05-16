@@ -21,6 +21,13 @@ class DataStoreManager @Inject constructor(@ApplicationContext appContext : Cont
     }
   }
 
+ suspend fun clearUser() {
+  prefsDataStore.edit { prefs->
+   prefs[Keys.NAMA] = ""
+   prefs[Keys.NPM] = ""
+  }
+ }
+
  val user : Flow<User> = prefsDataStore.data.map { prefs ->
   User(
    nama = prefs[Keys.NAMA] ?: "",

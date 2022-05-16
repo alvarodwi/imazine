@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+  <style name="TextAppearance.Imazine.Brand" parent="TextAppearance.MaterialComponents.Headline1">
+    <item name="android:textSize">48sp</item>
+    <item name="android:textColor">?attr/colorPrimary</item>
+    <item name="fontFamily">@font/strasua</item>
+    <item name="android:letterSpacing">0</item>
+    <item name="android:textAllCaps">true</item>
+  </style>
+
+
   <style name="TextAppearance.Imazine.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
     <item name="android:textSize">24sp</item>
     <item name="lineHeight">36sp</item>

@@ -5,7 +5,6 @@ plugins {
   kotlin("plugin.serialization") version LibVersion.kotlin
   id("androidx.navigation.safeargs.kotlin")
   id("dagger.hilt.android.plugin")
-  id("com.google.devtools.ksp") version "1.6.21-1.0.5"
   id("com.github.ben-manes.versions") version "0.42.0"
 }
 
@@ -94,7 +93,7 @@ dependencies {
   // dagger hilt
   implementation("com.google.dagger:hilt-android:${LibVersion.hilt}")
   kapt("com.google.dagger:hilt-compiler:${LibVersion.hilt}")
-  implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+  kapt("androidx.hilt:hilt-compiler:${LibVersion.androidxHilt}")
 
   // networking
   implementation("com.squareup.retrofit2:retrofit:2.9.0")

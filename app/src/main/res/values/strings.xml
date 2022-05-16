@@ -7,4 +7,8 @@
   <string name="load_error">Can\'t load content</string>
   <string name="login_error">Wrong Username/Password</string>
   <string name="cd_navigate_up">Navigate up</string>
+  <string name="hint_npm">NPM</string>
+  <string name="hint_password">Password</string>
+  <string name="btn_login">Login</string>
+  <string name="hint_login">Gunakan akun apps.himatif.org untuk melanjutkan</string>
 </resources>

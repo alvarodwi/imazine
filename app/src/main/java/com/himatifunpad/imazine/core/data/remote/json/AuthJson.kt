@@ -6,6 +6,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class AuthJson(
   val status : String = "",
-  val user : UserJson = UserJson(),
+  val user : UserJson? = null,
   @SerialName("Token") val token: String = "",
 )

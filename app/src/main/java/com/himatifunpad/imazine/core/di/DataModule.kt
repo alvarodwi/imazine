@@ -1,12 +1,15 @@
 package com.himatifunpad.imazine.core.di
 
-import androidx.viewbinding.BuildConfig
+import android.content.Context
+import com.himatifunpad.imazine.BuildConfig
+import com.himatifunpad.imazine.core.data.remote.NoConnectionInterceptor
 import com.himatifunpad.imazine.core.data.remote.api.HdaApiService
 import com.himatifunpad.imazine.core.data.remote.api.WpApiService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
@@ -31,7 +34,12 @@ class DataModule {
 
   @Singleton
   @Provides
-  fun provideHttpClient(): OkHttpClient {
+  fun provideNoConnectionInterceptor(@ApplicationContext appContext: Context): NoConnectionInterceptor =
+    NoConnectionInterceptor(appContext)
+
+  @Singleton
+  @Provides
+  fun provideHttpClient(netConn: NoConnectionInterceptor): OkHttpClient {
     val builder = OkHttpClient.Builder()
       .connectTimeout(1, TimeUnit.MINUTES)
       .readTimeout(1, TimeUnit.MINUTES)
@@ -46,6 +54,7 @@ class DataModule {
       builder.addInterceptor(logger)
     }
 
+    builder.addInterceptor(netConn)
     return builder
       .build()
   }
