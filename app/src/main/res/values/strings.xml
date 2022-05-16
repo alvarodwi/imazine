@@ -16,4 +16,5 @@
   <string name="lbl_latest_post">Latest Post</string>
   <string name="lbl_all_posts">All Posts</string>
   <string name="cd_iv_post_img">Post Image</string>
+  <string name="btn_retry">Retry</string>
 </resources>

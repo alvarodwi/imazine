@@ -14,8 +14,8 @@ import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
-  private val prefs: DataStoreManager,
   private val api: HdaApiService,
+  private val prefs: DataStoreManager,
 ) : AuthRepository, SafeApiRequest() {
   override suspend fun login(username: String, password: String): Flow<Result<User>> = flow {
     try {
@@ -23,7 +23,7 @@ class AuthRepositoryImpl @Inject constructor(
         { api.login(username, password) },
         ::decodeAuthJson
       ).user ?: throw ApiException("User data is empty")
-      val result = user.asModel()
+      val result = user.toModel()
       saveUser(result)
       emit(Result.success(result))
     } catch (ex: ApiException) {

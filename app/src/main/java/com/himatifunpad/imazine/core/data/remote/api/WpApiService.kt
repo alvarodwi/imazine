@@ -17,6 +17,15 @@ interface WpApiService {
     @Query("_fields") fields: String = "id,date,link,title,slug,content,_links"
   ): Response<List<PostJson>>
 
+  @GET("posts")
+  suspend fun getLatestPost(
+    @Query("page") page: Int = 1,
+    @Query("per_page") per_page: Int = 1,
+    @Query("categories") category: Int? = null,
+    @Query("_embed") embed: String = "wp:term,wp:featuredmedia",
+    @Query("_fields") fields: String = "id,date,link,title,slug,content,_links"
+  ): Response<List<PostJson>>
+
   @GET("posts/{id}")
   suspend fun getPost(
     @Path("id") postId: Long,

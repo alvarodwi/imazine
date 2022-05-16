@@ -1,4 +1,4 @@
-package com.himatifunpad.imazine.util
+package com.himatifunpad.imazine.ui
 
 import android.os.Handler
 import android.os.Looper

@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.annotation.MainThread
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import com.himatifunpad.imazine.util.viewbinding.ActivityViewBindingDelegate
-import com.himatifunpad.imazine.util.viewbinding.FragmentViewBindingDelegate
+import com.himatifunpad.imazine.ui.viewbinding.ActivityViewBindingDelegate
+import com.himatifunpad.imazine.ui.viewbinding.FragmentViewBindingDelegate
 
 @MainThread
 fun <T : ViewBinding> Fragment.viewBinding(bind: (View) -> T): FragmentViewBindingDelegate<T> =

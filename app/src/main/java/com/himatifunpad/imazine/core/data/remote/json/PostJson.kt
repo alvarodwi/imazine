@@ -29,3 +29,9 @@ data class PostFeaturedMediaJson(
 data class RenderedJson(
   @SerialName("rendered") val rendered: String = "",
 )
+
+@Serializable
+data class PostErrorJson(
+  val code : String = "",
+  val message : String = "",
+)

@@ -34,4 +34,12 @@ class DataStoreManager @Inject constructor(@ApplicationContext appContext : Cont
    npm = prefs[Keys.NPM] ?: "",
   )
  }
+
+ suspend fun setLatestPostId(postId :Long) {
+  prefsDataStore.edit { prefs->
+   prefs[Keys.LATEST_POST_ID] = postId
+  }
+ }
+
+ val latestPostId : Flow<Long> = prefsDataStore.data.map { it[Keys.LATEST_POST_ID] ?: 0L }
 }

@@ -1,8 +1,8 @@
-package com.himatifunpad.imazine.ui.auth
+package com.himatifunpad.imazine.ui.screen.auth
 
 import androidx.lifecycle.viewModelScope
 import com.himatifunpad.imazine.core.domain.repository.AuthRepository
-import com.himatifunpad.imazine.ui.auth.AuthViewModel.AuthEvent.LoginSuccess
+import com.himatifunpad.imazine.ui.screen.auth.AuthViewModel.AuthEvent.LoginSuccess
 import com.himatifunpad.imazine.util.base.BaseEvent
 import com.himatifunpad.imazine.util.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,7 +30,7 @@ class AuthViewModel @Inject constructor(
         }
         .collect { result ->
           if (result.isSuccess) sendNewEvent(LoginSuccess)
-          if (result.isFailure) setErrorMessage(result.exceptionOrNull()?.message)
+          else if (result.isFailure) setErrorMessage(result.exceptionOrNull()?.message)
         }
     }
 }

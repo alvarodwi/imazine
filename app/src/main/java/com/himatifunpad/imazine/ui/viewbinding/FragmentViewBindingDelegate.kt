@@ -1,4 +1,4 @@
-package com.himatifunpad.imazine.util.viewbinding
+package com.himatifunpad.imazine.ui.viewbinding
 
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -6,9 +6,9 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.viewbinding.ViewBinding
-import com.himatifunpad.imazine.util.GetBindMethod
-import com.himatifunpad.imazine.util.MainHandler
-import com.himatifunpad.imazine.util.ensureMainThread
+import com.himatifunpad.imazine.ui.GetBindMethod
+import com.himatifunpad.imazine.ui.MainHandler
+import com.himatifunpad.imazine.ui.ensureMainThread
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 

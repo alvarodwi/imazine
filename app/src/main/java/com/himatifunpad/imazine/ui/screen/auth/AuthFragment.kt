@@ -1,7 +1,5 @@
-package com.himatifunpad.imazine.ui.auth
+package com.himatifunpad.imazine.ui.screen.auth
 
-import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -9,11 +7,11 @@ import androidx.navigation.fragment.findNavController
 import com.himatifunpad.imazine.R
 import com.himatifunpad.imazine.databinding.FragmentAuthBinding
 import com.himatifunpad.imazine.ext.viewBinding
-import com.himatifunpad.imazine.ui.auth.AuthViewModel.AuthEvent
+import com.himatifunpad.imazine.ui.screen.auth.AuthViewModel.AuthEvent
 import com.himatifunpad.imazine.util.base.BaseEvent.ShowErrorMessage
 import com.himatifunpad.imazine.util.base.BaseFragment
-import com.himatifunpad.imazine.util.ext.snackbar
-import com.himatifunpad.imazine.util.ext.trimmedText
+import com.himatifunpad.imazine.ui.ext.snackbar
+import com.himatifunpad.imazine.ui.ext.trimmedText
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

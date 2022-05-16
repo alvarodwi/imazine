@@ -1,4 +1,4 @@
-package com.himatifunpad.imazine.util.ext
+package com.himatifunpad.imazine.ui.ext
 
 import android.widget.EditText
 import androidx.fragment.app.Fragment

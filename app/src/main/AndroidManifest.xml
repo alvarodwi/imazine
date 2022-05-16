@@ -15,7 +15,7 @@
       android:usesCleartextTraffic="true"
       android:theme="@style/Theme.Imazine">
     <activity
-        android:name=".MainActivity"
+        android:name=".ui.MainActivity"
         android:theme="@style/Theme.Imazine.Splash"
         android:exported="true">
       <intent-filter>

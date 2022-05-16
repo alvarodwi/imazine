@@ -1,11 +1,11 @@
-package com.himatifunpad.imazine.util.viewbinding
+package com.himatifunpad.imazine.ui.viewbinding
 
 import android.app.Activity
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
-import com.himatifunpad.imazine.util.GetBindMethod
-import com.himatifunpad.imazine.util.ensureMainThread
+import com.himatifunpad.imazine.ui.GetBindMethod
+import com.himatifunpad.imazine.ui.ensureMainThread
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
