@@ -32,6 +32,6 @@ data class RenderedJson(
 
 @Serializable
 data class PostErrorJson(
-  val code : String = "",
-  val message : String = "",
+  val code: String = "",
+  val message: String = "",
 )

@@ -10,8 +10,8 @@ import kotlinx.coroutines.Job
 import javax.inject.Inject
 
 @AndroidEntryPoint
-abstract class BaseFragment(@LayoutRes layoutId : Int) : Fragment(layoutId) {
-  @Inject lateinit var imageLoader : ImageLoader
+abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
+  @Inject lateinit var imageLoader: ImageLoader
   protected lateinit var eventJob: Job
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -23,7 +23,7 @@ abstract class BaseFragment(@LayoutRes layoutId : Int) : Fragment(layoutId) {
 
   override fun onStop() {
     super.onStop()
-    if(this::eventJob.isInitialized)
+    if (this::eventJob.isInitialized)
       eventJob.cancel()
   }
 }

@@ -29,7 +29,7 @@
     android:id="@+id/progress_bar"
     android:layout_width="2dp"
     android:layout_height="2dp"
-    android:indeterminate="true"
     android:layout_gravity="center"
+    android:indeterminate="true"
     tools:visibility="gone" />
 </LinearLayout>

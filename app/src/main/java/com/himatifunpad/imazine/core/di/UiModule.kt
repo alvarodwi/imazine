@@ -1,9 +1,7 @@
 package com.himatifunpad.imazine.core.di
 
-import android.app.Application
 import android.content.Context
 import coil.ImageLoader
-import com.himatifunpad.imazine.core.data.remote.NoConnectionInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,8 +16,8 @@ class UiModule {
   @Singleton
   @Provides
   fun provideCoilLoader(
-    @ApplicationContext context : Context,
-    client : OkHttpClient
+    @ApplicationContext context: Context,
+    client: OkHttpClient
   ) = ImageLoader.Builder(context)
     .okHttpClient(client)
     .crossfade(true)

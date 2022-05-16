@@ -4,16 +4,14 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import com.himatifunpad.imazine.util.NoInternetException
-import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.Interceptor
 import okhttp3.Interceptor.Chain
 import okhttp3.Response
 import java.io.IOException
 import java.net.InetSocketAddress
 import java.net.Socket
-import javax.inject.Inject
 
-class NoConnectionInterceptor (
+class NoConnectionInterceptor(
   private val context: Context
 ) : Interceptor {
   override fun intercept(chain: Chain): Response {

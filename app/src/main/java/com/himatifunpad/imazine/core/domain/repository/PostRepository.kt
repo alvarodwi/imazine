@@ -6,8 +6,8 @@ import com.himatifunpad.imazine.core.domain.model.Post
 import kotlinx.coroutines.flow.Flow
 
 interface PostRepository {
-  suspend fun getCategories() : Flow<Result<List<Category>>>
-  suspend fun getPost(postId : Long) : Flow<Result<Post>>
-  suspend fun getLatestPost() : Flow<Result<Post>>
-  fun getPosts(categoryId : Int) : Flow<PagingData<Post>>
+  suspend fun getCategories(): Flow<Result<List<Category>>>
+  suspend fun getPost(postId: Long): Flow<Result<Post>>
+  suspend fun getLatestPost(): Flow<Result<Post>>
+  fun getPosts(categoryId: Int): Flow<PagingData<Post>>
 }

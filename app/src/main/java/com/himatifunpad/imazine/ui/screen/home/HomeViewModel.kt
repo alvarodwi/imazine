@@ -43,7 +43,7 @@ class HomeViewModel @Inject constructor(
     }
   }
 
-  private fun fetchLatestPost(){
+  private fun fetchLatestPost() {
     viewModelScope.launch {
       post.getLatestPost()
         .catch {

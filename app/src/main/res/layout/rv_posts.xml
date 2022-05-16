@@ -5,7 +5,7 @@
   android:id="@+id/rv_posts"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  app:layout_behavior="@string/appbar_scrolling_view_behavior"
   app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+  app:layout_behavior="@string/appbar_scrolling_view_behavior"
   tools:itemCount="10"
   tools:listitem="@layout/item_post" />

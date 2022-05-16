@@ -20,7 +20,7 @@ class AuthViewModel @Inject constructor(
 
   fun doLogin(username: String, password: String) =
     viewModelScope.launch {
-      if(username.isEmpty() || password.isEmpty()){
+      if (username.isEmpty() || password.isEmpty()) {
         setErrorMessage("NPM / password tidak boleh kosong")
         return@launch
       }

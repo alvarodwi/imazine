@@ -11,35 +11,35 @@ import javax.inject.Inject
 
 private val Context.dataStore by preferencesDataStore("prefs")
 
-class DataStoreManager @Inject constructor(@ApplicationContext appContext : Context) {
- private val prefsDataStore = appContext.dataStore
+class DataStoreManager @Inject constructor(@ApplicationContext appContext: Context) {
+  private val prefsDataStore = appContext.dataStore
 
-  suspend fun setUser(user : User){
-    prefsDataStore.edit { prefs->
-     prefs[Keys.NAMA] = user.nama
-     prefs[Keys.NPM] = user.npm
+  suspend fun setUser(user: User) {
+    prefsDataStore.edit { prefs ->
+      prefs[Keys.NAMA] = user.nama
+      prefs[Keys.NPM] = user.npm
     }
   }
 
- suspend fun clearUser() {
-  prefsDataStore.edit { prefs->
-   prefs[Keys.NAMA] = ""
-   prefs[Keys.NPM] = ""
+  suspend fun clearUser() {
+    prefsDataStore.edit { prefs ->
+      prefs[Keys.NAMA] = ""
+      prefs[Keys.NPM] = ""
+    }
   }
- }
 
- val user : Flow<User> = prefsDataStore.data.map { prefs ->
-  User(
-   nama = prefs[Keys.NAMA] ?: "",
-   npm = prefs[Keys.NPM] ?: "",
-  )
- }
-
- suspend fun setLatestPostId(postId :Long) {
-  prefsDataStore.edit { prefs->
-   prefs[Keys.LATEST_POST_ID] = postId
+  val user: Flow<User> = prefsDataStore.data.map { prefs ->
+    User(
+      nama = prefs[Keys.NAMA] ?: "",
+      npm = prefs[Keys.NPM] ?: "",
+    )
   }
- }
 
- val latestPostId : Flow<Long> = prefsDataStore.data.map { it[Keys.LATEST_POST_ID] ?: 0L }
+  suspend fun setLatestPostId(postId: Long) {
+    prefsDataStore.edit { prefs ->
+      prefs[Keys.LATEST_POST_ID] = postId
+    }
+  }
+
+  val latestPostId: Flow<Long> = prefsDataStore.data.map { it[Keys.LATEST_POST_ID] ?: 0L }
 }

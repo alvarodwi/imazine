@@ -11,10 +11,10 @@ fun Fragment.createSnackbar(
 ): Snackbar = Snackbar.make(requireView(), message, duration)
 
 fun Fragment.snackbar(
-  message : String,
-  duration : Int = Snackbar.LENGTH_SHORT,
+  message: String,
+  duration: Int = Snackbar.LENGTH_SHORT,
 ) {
-  createSnackbar(message,duration).show()
+  createSnackbar(message, duration).show()
 }
 
 fun EditText?.trimmedText(): String =

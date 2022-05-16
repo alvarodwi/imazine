@@ -5,8 +5,6 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
 import coil.request.ImageRequest
-import coil.size.Scale
-import coil.transform.Transformation
 import com.himatifunpad.imazine.core.domain.model.Post
 import com.himatifunpad.imazine.databinding.ItemPostBinding
 import com.himatifunpad.imazine.ext.viewBinding
