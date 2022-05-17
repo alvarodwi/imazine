@@ -30,9 +30,9 @@ class MainActivity : AppCompatActivity() {
     val graph = inflater.inflate(navigation.graph_main)
     lifecycleScope.launchWhenCreated {
       if (isLoggedIn())
-        graph.setStartDestination(id.homeFragment)
+        graph.setStartDestination(id.homeScreen)
       else
-        graph.setStartDestination(id.authFragment)
+        graph.setStartDestination(id.authScreen)
 
       val navController = navHostFragment.navController
       navController.setGraph(graph, intent.extras)

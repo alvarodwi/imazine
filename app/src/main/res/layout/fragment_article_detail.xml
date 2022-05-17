@@ -4,28 +4,22 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-    android:id="@+id/swipe_refresh"
+  <include
+    android:id="@+id/content"
+    layout="@layout/layout_article"
     android:layout_width="match_parent"
     android:layout_height="0dp"
-    android:layout_marginStart="@dimen/dimen_16dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/toolbar">
-
-    <include
-      android:id="@+id/content"
-      layout="@layout/layout_home" />
-  </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    android:layout_marginHorizontal="@dimen/dimen_16dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
   <com.google.android.material.appbar.MaterialToolbar
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:layout_constraintTop_toTopOf="parent"
-    app:menu="@menu/home"
-    app:title="@string/app_name"
-    android:nestedScrollingEnabled="true"
-    app:titleTextAppearance="@style/TextAppearance.Imazine.Brand.Small"
-    app:titleTextColor="?attr/colorPrimary" />
+
+    app:navigationIcon="@drawable/ic_arrow_left" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

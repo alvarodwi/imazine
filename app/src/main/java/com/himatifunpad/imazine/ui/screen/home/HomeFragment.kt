@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
 
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
   private val binding by viewBinding<FragmentHomeBinding>()
-  private val viewModel: HomeViewModel by viewModels()
+  private val viewModel by viewModels<HomeViewModel>()
 
   private val rvCategory get() = binding.content.rvCategory
   private val rvAllPosts get() = binding.content.allPosts.rvPosts
@@ -63,6 +63,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     viewLifecycleOwner.lifecycleScope.launch {
       viewModel.allPosts.collectLatest(postAdapter::submitData)
+      attachPostList()
     }
   }
 
@@ -82,6 +83,10 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         // do nothing
       }
     )
+    attachPostList()
+  }
+
+  private fun attachPostList() {
     rvAllPosts.adapter = postAdapter.withLoadStateHeaderAndFooter(
       header = PostLoadStateAdapter(postAdapter::retry),
       footer = PostLoadStateAdapter(postAdapter::retry)

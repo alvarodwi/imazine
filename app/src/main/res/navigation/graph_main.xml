@@ -2,21 +2,52 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/graph_main.xml">
+  android:id="@+id/graph_main.xml"
+  >
 
   <fragment
-    android:id="@+id/authFragment"
+    android:id="@+id/authScreen"
     android:name="com.himatifunpad.imazine.ui.screen.auth.AuthFragment"
     android:label="AuthFragment"
     tools:layout="@layout/fragment_auth">
     <action
-      android:id="@+id/action_to_home"
-      app:destination="@id/homeFragment" />
+      android:id="@+id/action_auth_to_home"
+      app:destination="@id/homeScreen" />
   </fragment>
 
   <fragment
-    android:id="@+id/homeFragment"
+    android:id="@+id/homeScreen"
     android:name="com.himatifunpad.imazine.ui.screen.home.HomeFragment"
     android:label="HomeFragment"
-    tools:layout="@layout/fragment_home" />
+    tools:layout="@layout/fragment_home" >
+    <action
+      android:id="@+id/action_home_to_article_detail"
+      app:destination="@id/articleDetailScreen" />
+    <action
+      android:id="@+id/action_home_to_article_list"
+      app:destination="@id/articleListScreen" />
+  </fragment>
+  <fragment
+    android:id="@+id/articleDetailScreen"
+    android:name="com.himatifunpad.imazine.ui.screen.article.detail.ArticleDetailFragment"
+    android:label="ArticleDetailFragment"
+    tools:layout="@layout/fragment_article_detail" >
+    <argument
+      android:name="post_id"
+      app:argType="long"
+      android:defaultValue="0L" />
+  </fragment>
+  <fragment
+    android:id="@+id/articleListScreen"
+    android:name="com.himatifunpad.imazine.ui.screen.article.list.ArticleListFragment"
+    android:label="ArticleListFragment"
+    tools:layout="@layout/fragment_article_list" >
+    <action
+      android:id="@+id/action_article_list_to_article_detail"
+      app:destination="@id/articleDetailScreen" />
+    <argument
+      android:name="category_id"
+      app:argType="integer"
+      android:defaultValue="0" />
+  </fragment>
 </navigation>

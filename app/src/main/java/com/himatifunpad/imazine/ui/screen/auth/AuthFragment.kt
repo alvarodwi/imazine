@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.onEach
 
 class AuthFragment : BaseFragment(R.layout.fragment_auth) {
   private val binding by viewBinding<FragmentAuthBinding>()
-  private val viewModel: AuthViewModel by viewModels()
+  private val viewModel by viewModels<AuthViewModel>()
 
   private val tfUsername get() = binding.tfNpm
   private val tfPassword get() = binding.tfPassword
@@ -61,7 +61,7 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
 
   private fun moveToHome() {
     findNavController().navigate(
-      AuthFragmentDirections.actionToHome()
+      AuthFragmentDirections.actionAuthToHome()
     )
   }
 }

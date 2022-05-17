@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
+  app:strokeColor="?attr/colorOnBackground"
   android:layout_marginEnd="@dimen/dimen_8dp"
-  app:cardElevation="@dimen/dimen_8dp">
-
-  <com.google.android.material.circularreveal.CircularRevealFrameLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/dimen_12dp">
+  app:strokeWidth="1dp">
 
     <TextView
       android:id="@+id/tv_name"
+      tools:text="Imazine"
+      android:padding="@dimen/dimen_12dp"
       style="@style/TextAppearance.Imazine.Overline"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      tools:text="@string/app_name" />
-  </com.google.android.material.circularreveal.CircularRevealFrameLayout>
+      android:layout_height="wrap_content"/>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
