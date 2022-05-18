@@ -3,18 +3,51 @@ package com.himatifunpad.imazine.ui.screen.article.list
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.himatifunpad.imazine.R
 import com.himatifunpad.imazine.databinding.FragmentArticleListBinding
 import com.himatifunpad.imazine.ext.viewBinding
+import com.himatifunpad.imazine.ui.adapter.PostAdapter
 import com.himatifunpad.imazine.util.base.BaseFragment
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class ArticleListFragment : BaseFragment(R.layout.fragment_article_list) {
   private val binding by viewBinding<FragmentArticleListBinding>()
   private val viewModel by viewModels<ArticleListViewModel>()
   private val args by navArgs<ArticleListFragmentArgs>()
 
+  private val toolbar get() = binding.toolbar
+  private val rvPosts get() = binding.content.rvPosts
+
+  private lateinit var postAdapter: PostAdapter
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    setupView()
+
+    viewLifecycleOwner.lifecycleScope.launch {
+      viewModel.allPosts.collectLatest(postAdapter::submitData)
+    }
+  }
+
   override fun setupView() {
-    TODO("Not yet implemented")
+    toolbar.title = args.categoryName
+    toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
+    postAdapter = PostAdapter(
+      imageLoader = imageLoader,
+      onClick = { id ->
+        moveToArticleDetail(id)
+      }
+    )
+    rvPosts.adapter = postAdapter
+  }
+
+  private fun moveToArticleDetail(id: Long) {
+    findNavController().navigate(
+      ArticleListFragmentDirections.actionArticleListToArticleDetail(id)
+    )
   }
 }

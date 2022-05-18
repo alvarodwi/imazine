@@ -4,16 +4,16 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
-  app:strokeColor="?attr/colorOnBackground"
   android:layout_marginEnd="@dimen/dimen_8dp"
+  app:strokeColor="?attr/colorOnBackground"
   app:strokeWidth="1dp">
 
-    <TextView
-      android:id="@+id/tv_name"
-      tools:text="Imazine"
-      android:padding="@dimen/dimen_12dp"
-      style="@style/TextAppearance.Imazine.Overline"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
+  <TextView
+    android:id="@+id/tv_name"
+    style="@style/TextAppearance.Imazine.Overline"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dimen_12dp"
+    tools:text="Imazine" />
 
 </com.google.android.material.card.MaterialCardView>

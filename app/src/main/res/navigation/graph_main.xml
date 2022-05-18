@@ -2,8 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/graph_main.xml"
-  >
+  android:id="@+id/graph_main.xml">
 
   <fragment
     android:id="@+id/authScreen"
@@ -19,7 +18,7 @@
     android:id="@+id/homeScreen"
     android:name="com.himatifunpad.imazine.ui.screen.home.HomeFragment"
     android:label="HomeFragment"
-    tools:layout="@layout/fragment_home" >
+    tools:layout="@layout/fragment_home">
     <action
       android:id="@+id/action_home_to_article_detail"
       app:destination="@id/articleDetailScreen" />
@@ -31,23 +30,27 @@
     android:id="@+id/articleDetailScreen"
     android:name="com.himatifunpad.imazine.ui.screen.article.detail.ArticleDetailFragment"
     android:label="ArticleDetailFragment"
-    tools:layout="@layout/fragment_article_detail" >
+    tools:layout="@layout/fragment_article_detail">
     <argument
       android:name="post_id"
-      app:argType="long"
-      android:defaultValue="0L" />
+      android:defaultValue="0L"
+      app:argType="long" />
   </fragment>
   <fragment
     android:id="@+id/articleListScreen"
     android:name="com.himatifunpad.imazine.ui.screen.article.list.ArticleListFragment"
     android:label="ArticleListFragment"
-    tools:layout="@layout/fragment_article_list" >
+    tools:layout="@layout/fragment_article_list">
     <action
       android:id="@+id/action_article_list_to_article_detail"
       app:destination="@id/articleDetailScreen" />
     <argument
       android:name="category_id"
-      app:argType="integer"
-      android:defaultValue="0" />
+      android:defaultValue="0"
+      app:argType="integer" />
+    <argument
+      android:name="category_name"
+      android:defaultValue=""
+      app:argType="string" />
   </fragment>
 </navigation>

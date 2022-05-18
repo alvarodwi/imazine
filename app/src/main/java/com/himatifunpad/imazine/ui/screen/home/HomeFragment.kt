@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import coil.request.ImageRequest
 import com.himatifunpad.imazine.R
 import com.himatifunpad.imazine.core.domain.model.Post
@@ -11,7 +12,6 @@ import com.himatifunpad.imazine.databinding.FragmentHomeBinding
 import com.himatifunpad.imazine.ext.viewBinding
 import com.himatifunpad.imazine.ui.adapter.CategoryAdapter
 import com.himatifunpad.imazine.ui.adapter.PostAdapter
-import com.himatifunpad.imazine.ui.adapter.PostLoadStateAdapter
 import com.himatifunpad.imazine.ui.ext.snackbar
 import com.himatifunpad.imazine.ui.screen.home.HomeViewModel.HomeEvent
 import com.himatifunpad.imazine.util.base.BaseEvent.ShowErrorMessage
@@ -63,7 +63,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     viewLifecycleOwner.lifecycleScope.launch {
       viewModel.allPosts.collectLatest(postAdapter::submitData)
-      attachPostList()
     }
   }
 
@@ -71,26 +70,19 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     swipeRefresh.setOnRefreshListener { refresh() }
 
     categoryAdapter = CategoryAdapter(
-      onClick = {
-        // do nothing
+      onClick = { id, name ->
+        moveToArticleList(id, name)
       }
     )
     rvCategory.adapter = categoryAdapter
 
     postAdapter = PostAdapter(
       imageLoader = imageLoader,
-      onClick = {
-        // do nothing
+      onClick = { id ->
+        moveToArticleDetail(id)
       }
     )
-    attachPostList()
-  }
-
-  private fun attachPostList() {
-    rvAllPosts.adapter = postAdapter.withLoadStateHeaderAndFooter(
-      header = PostLoadStateAdapter(postAdapter::retry),
-      footer = PostLoadStateAdapter(postAdapter::retry)
-    )
+    rvAllPosts.adapter = postAdapter
   }
 
   private fun refresh() {
@@ -105,6 +97,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
   private fun updateLatestPost(post: Post) {
     with(latestPost) {
+      this.root.setOnClickListener { moveToArticleDetail(post.id) }
       ivFeaturedImg.apply {
         val imgData = ImageRequest.Builder(this.context)
           .data(post.cover)
@@ -116,5 +109,17 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
       tvCategory.text = post.category
       tvTitle.text = post.title
     }
+  }
+
+  private fun moveToArticleList(id: Int, name: String) {
+    findNavController().navigate(
+      HomeFragmentDirections.actionHomeToArticleList(id, name)
+    )
+  }
+
+  private fun moveToArticleDetail(id: Long) {
+    findNavController().navigate(
+      HomeFragmentDirections.actionHomeToArticleDetail(id)
+    )
   }
 }

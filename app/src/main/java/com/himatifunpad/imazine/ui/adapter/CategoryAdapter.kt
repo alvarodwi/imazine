@@ -10,7 +10,7 @@ import com.himatifunpad.imazine.ui.adapter.CategoryAdapter.CategoryViewHolder
 import com.himatifunpad.imazine.util.CATEGORY_DIFF
 
 class CategoryAdapter(
-  private val onClick: (Int) -> Unit,
+  private val onClick: (Int, String) -> Unit,
 ) : ListAdapter<Category, CategoryViewHolder>(CATEGORY_DIFF) {
 
   inner class CategoryViewHolder(private val binding: ItemCategoryBinding) :
@@ -18,7 +18,7 @@ class CategoryAdapter(
     fun bind(data: Category?) {
       if (data == null) return
       with(binding) {
-        root.setOnClickListener { onClick(data.id) }
+        root.setOnClickListener { onClick(data.id, data.name) }
         tvName.text = data.name
       }
     }

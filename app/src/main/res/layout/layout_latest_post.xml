@@ -10,7 +10,7 @@
   <com.google.android.material.imageview.ShapeableImageView
     android:id="@+id/iv_featured_img"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="@dimen/dimen_200dp"
     android:contentDescription="@string/cd_iv_latest_post"
     android:scaleType="centerCrop"
     app:shapeAppearanceOverlay="@style/ShapeAppearance.App.MediumComponent"
