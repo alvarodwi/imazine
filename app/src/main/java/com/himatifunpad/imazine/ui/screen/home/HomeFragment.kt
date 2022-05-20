@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import coil.request.ImageRequest
 import com.himatifunpad.imazine.R
+import com.himatifunpad.imazine.core.data.parcelize
 import com.himatifunpad.imazine.core.domain.model.Post
 import com.himatifunpad.imazine.databinding.FragmentHomeBinding
 import com.himatifunpad.imazine.ext.viewBinding
@@ -75,7 +76,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     toolbar.setOnMenuItemClickListener {
       when (it.itemId) {
         R.id.item_settings -> {
-          snackbar("Settings clicked")
+          moveToSettings()
         }
         R.id.item_about -> {
           moveToAbout()
@@ -94,8 +95,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     postAdapter = PostAdapter(
       imageLoader = imageLoader,
-      onClick = { id ->
-        moveToArticleDetail(id)
+      onClick = { post ->
+        moveToArticleDetail(post)
       }
     )
     rvAllPosts.adapter = postAdapter
@@ -113,7 +114,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
   private fun updateLatestPost(post: Post) {
     with(latestPost) {
-      this.root.setOnClickListener { moveToArticleDetail(post.id) }
+      this.root.setOnClickListener { moveToArticleDetail(post) }
       ivFeaturedImg.apply {
         val imgData = ImageRequest.Builder(this.context)
           .data(post.cover)
@@ -133,15 +134,21 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     )
   }
 
-  private fun moveToArticleDetail(id: Long) {
+  private fun moveToArticleDetail(post : Post) {
     findNavController().navigate(
-      HomeFragmentDirections.actionHomeToArticleDetail(id)
+      HomeFragmentDirections.actionHomeToArticleDetail(post.parcelize())
     )
   }
 
   private fun moveToAbout() {
     findNavController().navigate(
       HomeFragmentDirections.actionHomeToAbout()
+    )
+  }
+
+  private fun moveToSettings() {
+    findNavController().navigate(
+      HomeFragmentDirections.actionHomeToSettings()
     )
   }
 }

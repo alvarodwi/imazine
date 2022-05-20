@@ -23,4 +23,17 @@
   <string name="social_media">himatifunpad</string>
   <string name="website">himatif.fmipa.unpad.ac.id</string>
   <string name="email">himatifunpad@gmail.com</string>
+  <string name="prefs_general">General</string>
+  <string name="prefs_app_theme">App theme</string>
+  <string name="prefs_app_theme_light">Light</string>
+  <string name="prefs_app_theme_dark">Dark</string>
+  <string name="prefs_app_theme_system">Follow system</string>
+  <string name="prefs_notify_new_post">Notify on New Post</string>
+  <string name="prefs_notify_new_post_on">You will be notified when a new article is posted</string>
+  <string name="prefs_notify_new_post_off">You won\'t be notified when a new article is posted</string>
+  <string name="prefs_logout">Logout</string>
+  <string name="dialog_logout">Logout</string>
+  <string name="dialog_message_logout">Do you want to logout from Imazine ?</string>
+  <string name="dialog_yes">Yes</string>
+  <string name="dialog_no">No</string>
 </resources>

@@ -7,6 +7,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.himatifunpad.imazine.R
+import com.himatifunpad.imazine.core.data.parcelize
+import com.himatifunpad.imazine.core.domain.model.Post
 import com.himatifunpad.imazine.databinding.FragmentArticleListBinding
 import com.himatifunpad.imazine.ext.viewBinding
 import com.himatifunpad.imazine.ui.adapter.PostAdapter
@@ -38,16 +40,16 @@ class ArticleListFragment : BaseFragment(R.layout.fragment_article_list) {
     toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
     postAdapter = PostAdapter(
       imageLoader = imageLoader,
-      onClick = { id ->
-        moveToArticleDetail(id)
+      onClick = { post ->
+        moveToArticleDetail(post)
       }
     )
     rvPosts.adapter = postAdapter
   }
 
-  private fun moveToArticleDetail(id: Long) {
+  private fun moveToArticleDetail(post : Post) {
     findNavController().navigate(
-      ArticleListFragmentDirections.actionArticleListToArticleDetail(id)
+      ArticleListFragmentDirections.actionArticleListToArticleDetail(post.parcelize())
     )
   }
 }

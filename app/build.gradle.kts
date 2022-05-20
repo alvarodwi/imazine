@@ -3,6 +3,7 @@ plugins {
   kotlin("android")
   kotlin("kapt")
   kotlin("plugin.serialization") version LibVersion.kotlin
+  id("kotlin-parcelize")
   id("androidx.navigation.safeargs.kotlin")
   id("dagger.hilt.android.plugin")
   id("com.github.ben-manes.versions") version "0.42.0"
@@ -74,12 +75,14 @@ dependencies {
   implementation("androidx.datastore:datastore-preferences:1.0.0")
   implementation("androidx.fragment:fragment-ktx:1.4.1")
   implementation("androidx.activity:activity-ktx:1.4.0")
+  implementation("androidx.preference:preference-ktx:1.2.0")
 
   //ui
   implementation("com.google.android.material:material:1.6.0")
   implementation("androidx.constraintlayout:constraintlayout:2.1.3")
   implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
   implementation("androidx.paging:paging-runtime-ktx:3.1.1")
+  implementation("com.afollestad.material-dialogs:core:3.3.0")
 
   //navigation
   implementation("androidx.navigation:navigation-fragment-ktx:${LibVersion.nav}")

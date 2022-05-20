@@ -36,10 +36,6 @@ class AuthRepositoryImpl @Inject constructor(
   private fun decodeAuthJson(str: String): String =
     Json.decodeFromString(AuthJson.serializer(), str).status
 
-  override suspend fun logout() {
-    prefs.clearUser()
-  }
-
   private suspend fun saveUser(user: User) {
     prefs.setUser(user)
   }

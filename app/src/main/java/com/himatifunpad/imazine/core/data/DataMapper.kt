@@ -38,3 +38,25 @@ fun CategoryJson.toModel() =
     name = name,
     slug = slug,
   )
+
+fun ParcelizedPost.toModel() =
+  Post(
+    id = id,
+    date = date,
+    slug = slug,
+    title = title,
+    content = content,
+    cover = cover,
+    category = category
+  )
+
+fun Post.parcelize() =
+  ParcelizedPost(
+    id = id,
+    date = date,
+    slug = slug,
+    title = title,
+    content = content,
+    cover = cover,
+    category = category
+  )

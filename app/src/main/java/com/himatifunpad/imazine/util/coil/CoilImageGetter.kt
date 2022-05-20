@@ -4,28 +4,19 @@ import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.text.Html
+import android.util.TypedValue
 import android.widget.TextView
-import coil.ImageLoader
 import coil.request.ImageRequest
-import dagger.hilt.EntryPoint
-import dagger.hilt.InstallIn
+import com.himatifunpad.imazine.core.di.ImageLoaderEntryPoint
 import dagger.hilt.android.EntryPointAccessors
-import dagger.hilt.components.SingletonComponent
 import logcat.logcat
+import kotlin.math.roundToInt
 
 // from https://github.com/Commit451/coil-imagegetter
 
 class CoilImageGetter(
   private val textView: TextView,
-  private val matchParent: Boolean = true,
-  private val sourceModifier: ((source: String) -> String)? = null
 ) : Html.ImageGetter {
-  @EntryPoint
-  @InstallIn(SingletonComponent::class)
-  interface CoilImageGetterEntryPoint {
-    fun coilLoader(): ImageLoader
-  }
-
   override fun getDrawable(source: String): Drawable {
     logcat { source }
 
@@ -33,13 +24,17 @@ class CoilImageGetter(
     val entryPoint =
       EntryPointAccessors.fromApplication(
         textView.context,
-        CoilImageGetterEntryPoint::class.java
+        ImageLoaderEntryPoint::class.java
       )
     entryPoint.coilLoader().enqueue(
       ImageRequest.Builder(textView.context)
         .data(source)
         .apply {
-          size(textView.width)
+          val metrics = textView.resources.displayMetrics
+          val margin = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP, 32f, metrics
+          ).roundToInt();
+          size(metrics.widthPixels - margin)
           target { drawable ->
             drawablePlaceholder.updateDrawable(drawable)
             // invalidating the drawable doesn't seem to be enough...

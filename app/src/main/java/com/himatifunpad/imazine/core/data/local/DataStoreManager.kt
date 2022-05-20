@@ -1,7 +1,10 @@
 package com.himatifunpad.imazine.core.data.local
 
 import android.content.Context
+import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.longPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.himatifunpad.imazine.core.domain.model.User
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -16,30 +19,38 @@ class DataStoreManager @Inject constructor(@ApplicationContext appContext: Conte
 
   suspend fun setUser(user: User) {
     prefsDataStore.edit { prefs ->
-      prefs[Keys.NAMA] = user.nama
-      prefs[Keys.NPM] = user.npm
+      prefs[stringPreferencesKey(Keys.NAMA)] = user.nama
+      prefs[stringPreferencesKey(Keys.NPM)] = user.npm
     }
   }
 
   suspend fun clearUser() {
     prefsDataStore.edit { prefs ->
-      prefs[Keys.NAMA] = ""
-      prefs[Keys.NPM] = ""
+      prefs[stringPreferencesKey(Keys.NAMA)] = ""
+      prefs[stringPreferencesKey(Keys.NPM)] = ""
     }
   }
 
   val user: Flow<User> = prefsDataStore.data.map { prefs ->
     User(
-      nama = prefs[Keys.NAMA] ?: "",
-      npm = prefs[Keys.NPM] ?: "",
+      nama = prefs[stringPreferencesKey(Keys.NAMA)] ?: "",
+      npm = prefs[stringPreferencesKey(Keys.NPM)] ?: "",
     )
   }
 
   suspend fun setLatestPostId(postId: Long) {
     prefsDataStore.edit { prefs ->
-      prefs[Keys.LATEST_POST_ID] = postId
+      prefs[longPreferencesKey(Keys.LATEST_POST_ID)] = postId
     }
   }
 
-  val latestPostId: Flow<Long> = prefsDataStore.data.map { it[Keys.LATEST_POST_ID] ?: 0L }
+  val latestPostId: Flow<Long> =
+    prefsDataStore.data.map { it[longPreferencesKey(Keys.LATEST_POST_ID)] ?: 0L }
+
+  suspend fun setInt(key: Preferences.Key<Int>, value: Int) {
+    prefsDataStore.edit { prefs -> prefs[key] = value }
+  }
+
+  fun getInt(key: Preferences.Key<Int>, default: Int = 0): Flow<Int?> =
+    prefsDataStore.data.map { it[key] ?: default }
 }

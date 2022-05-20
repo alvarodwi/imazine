@@ -4,10 +4,12 @@ import android.os.Build
 import android.text.Html
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.himatifunpad.imazine.util.coil.CoilImageGetter
+import logcat.logcat
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
@@ -42,3 +44,15 @@ fun TextView.parseHtmlWithImage(html: String) {
 private val indonesianLocale = Locale("id")
 val imazineDateFormatter: DateTimeFormatter =
   DateTimeFormatter.ofPattern("dd MMMM yyyy", indonesianLocale)
+
+// night mode helper
+fun toggleAppTheme(value: Int) {
+  logcat("ext"){ "toggleAppTheme($value)" }
+  AppCompatDelegate.setDefaultNightMode(
+    when (value) {
+      1 -> AppCompatDelegate.MODE_NIGHT_NO
+      2 -> AppCompatDelegate.MODE_NIGHT_YES
+      else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+    }
+  )
+}

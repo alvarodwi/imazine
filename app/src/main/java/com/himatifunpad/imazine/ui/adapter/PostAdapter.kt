@@ -13,7 +13,7 @@ import com.himatifunpad.imazine.util.POST_DIFF
 
 class PostAdapter(
   private val imageLoader: ImageLoader,
-  private val onClick: (Long) -> Unit,
+  private val onClick: (Post) -> Unit,
 ) :
   PagingDataAdapter<Post, PostViewHolder>(POST_DIFF) {
   inner class PostViewHolder(private val binding: ItemPostBinding) :
@@ -21,7 +21,7 @@ class PostAdapter(
     fun bind(data: Post?) {
       if (data == null) return
       with(binding) {
-        root.setOnClickListener { onClick(data.id) }
+        root.setOnClickListener { onClick(data) }
         ivPostImg.apply {
           val imgData = ImageRequest.Builder(this.context)
             .data(data.cover)
