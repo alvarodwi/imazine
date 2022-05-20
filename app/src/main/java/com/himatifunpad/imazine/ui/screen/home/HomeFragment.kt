@@ -1,7 +1,9 @@
 package com.himatifunpad.imazine.ui.screen.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.view.menu.MenuBuilder
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -25,6 +27,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
   private val binding by viewBinding<FragmentHomeBinding>()
   private val viewModel by viewModels<HomeViewModel>()
 
+  private val toolbar get() = binding.toolbar
   private val rvCategory get() = binding.content.rvCategory
   private val rvAllPosts get() = binding.content.allPosts.rvPosts
   private val latestPost get() = binding.content.latestPost
@@ -66,7 +69,20 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
   }
 
+  @SuppressLint("RestrictedAPI")
   override fun setupView() {
+    (toolbar.menu as MenuBuilder).setOptionalIconsVisible(true)
+    toolbar.setOnMenuItemClickListener {
+      when (it.itemId) {
+        R.id.item_settings -> {
+          snackbar("Settings clicked")
+        }
+        R.id.item_about -> {
+          moveToAbout()
+        }
+      }
+      true
+    }
     swipeRefresh.setOnRefreshListener { refresh() }
 
     categoryAdapter = CategoryAdapter(
@@ -120,6 +136,12 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
   private fun moveToArticleDetail(id: Long) {
     findNavController().navigate(
       HomeFragmentDirections.actionHomeToArticleDetail(id)
+    )
+  }
+
+  private fun moveToAbout() {
+    findNavController().navigate(
+      HomeFragmentDirections.actionHomeToAbout()
     )
   }
 }

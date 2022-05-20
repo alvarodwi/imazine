@@ -25,6 +25,9 @@
     <action
       android:id="@+id/action_home_to_article_list"
       app:destination="@id/articleListScreen" />
+    <action
+      android:id="@+id/action_home_to_about"
+      app:destination="@id/aboutScreen" />
   </fragment>
   <fragment
     android:id="@+id/articleDetailScreen"
@@ -53,4 +56,10 @@
       android:defaultValue=""
       app:argType="string" />
   </fragment>
+
+  <fragment
+    android:id="@+id/aboutScreen"
+    android:name="com.himatifunpad.imazine.ui.screen.about.AboutFragment"
+    android:label="AboutFragment"
+    tools:layout="@layout/fragment_about"></fragment>
 </navigation>

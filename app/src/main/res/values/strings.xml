@@ -17,4 +17,10 @@
   <string name="lbl_all_posts">All Posts</string>
   <string name="cd_iv_post_img">Post Image</string>
   <string name="btn_retry">Retry</string>
+  <string name="about">About</string>
+  <string name="app_description">Himatif Imazine (Informatics Magazine) Apps merupakan sebuah platform media yang menyajikan sebuah artikel terkait bidang teknologi informasi, berita dunia, fakta unik dan menarik, serta menyajikan rangkaian informasi program kerja di Badan Eksekutif Himatif FMIPA Unpad.\n\nDengan berbagai perubahan untuk versi saat ini, diharapkan memberikan kemudahan untuk khalayak umum mendapatkan sebuah informasi yang terbaru.</string>
+  <string name="lbl_social_media">Our Social Media</string>
+  <string name="social_media">himatifunpad</string>
+  <string name="website">himatif.fmipa.unpad.ac.id</string>
+  <string name="email">himatifunpad@gmail.com</string>
 </resources>
