@@ -70,16 +70,17 @@ dependencies {
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${LibVersion.coroutines}")
 
   // androidx core
-  implementation("androidx.core:core-ktx:1.7.0")
-  implementation("androidx.appcompat:appcompat:1.4.1")
+  implementation("androidx.core:core-ktx:1.8.0")
+  implementation("androidx.appcompat:appcompat:1.4.2")
   implementation("androidx.datastore:datastore-preferences:1.0.0")
-  implementation("androidx.fragment:fragment-ktx:1.4.1")
-  implementation("androidx.activity:activity-ktx:1.4.0")
+  implementation("androidx.fragment:fragment-ktx:1.5.1")
+  implementation("androidx.activity:activity-ktx:1.5.1")
   implementation("androidx.preference:preference-ktx:1.2.0")
+  implementation("androidx.work:work-runtime-ktx:2.7.1")
 
   //ui
-  implementation("com.google.android.material:material:1.6.0")
-  implementation("androidx.constraintlayout:constraintlayout:2.1.3")
+  implementation("com.google.android.material:material:1.6.1")
+  implementation("androidx.constraintlayout:constraintlayout:2.1.4")
   implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
   implementation("androidx.paging:paging-runtime-ktx:3.1.1")
   implementation("com.afollestad.material-dialogs:core:3.3.0")
@@ -96,17 +97,18 @@ dependencies {
   // dagger hilt
   implementation("com.google.dagger:hilt-android:${LibVersion.hilt}")
   kapt("com.google.dagger:hilt-compiler:${LibVersion.hilt}")
+  implementation("androidx.hilt:hilt-work:${LibVersion.androidxHilt}")
   kapt("androidx.hilt:hilt-compiler:${LibVersion.androidxHilt}")
 
   // networking
   implementation("com.squareup.retrofit2:retrofit:2.9.0")
   implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
   implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
-  implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
+  implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
 
   // other library
-  implementation("io.coil-kt:coil:2.0.0")
-  implementation("org.jsoup:jsoup:1.15.1")
+  implementation("io.coil-kt:coil:2.1.0")
+  implementation("org.jsoup:jsoup:1.15.2")
   implementation("com.squareup.logcat:logcat:0.1")
 
   // testing

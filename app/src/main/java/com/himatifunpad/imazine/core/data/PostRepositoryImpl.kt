@@ -64,6 +64,8 @@ class PostRepositoryImpl @Inject constructor(
     }
   }
 
+  override fun getLatestPostId(): Flow<Long> = prefs.latestPostId
+
   override fun getPosts(categoryId: Int): Flow<PagingData<Post>> =
     Pager(
       PagingConfig(pageSize = 10)

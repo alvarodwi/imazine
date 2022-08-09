@@ -9,6 +9,7 @@ import com.himatifunpad.imazine.R.layout
 import com.himatifunpad.imazine.R.navigation
 import com.himatifunpad.imazine.R.style
 import com.himatifunpad.imazine.core.data.local.DataStoreManager
+import com.himatifunpad.imazine.core.work.LatestPostWorker
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     val inflater = navHostFragment.navController.navInflater
     val graph = inflater.inflate(navigation.graph_main)
     lifecycleScope.launchWhenCreated {
+      // set start destination
       if (isLoggedIn())
         graph.setStartDestination(id.homeScreen)
       else
@@ -36,8 +38,14 @@ class MainActivity : AppCompatActivity() {
 
       val navController = navHostFragment.navController
       navController.setGraph(graph, intent.extras)
+
+      // configure worker
+      if(isPostNotificationOn()){
+        LatestPostWorker.scheduleWork(applicationContext)
+      }
     }
   }
 
   private suspend fun isLoggedIn(): Boolean = prefs.user.first().isEmpty().not()
+  private suspend fun isPostNotificationOn() : Boolean = prefs.notifyNewPost.first()
 }

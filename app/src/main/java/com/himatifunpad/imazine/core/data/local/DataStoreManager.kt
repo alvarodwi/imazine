@@ -2,6 +2,7 @@ package com.himatifunpad.imazine.core.data.local
 
 import android.content.Context
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
@@ -46,6 +47,9 @@ class DataStoreManager @Inject constructor(@ApplicationContext appContext: Conte
 
   val latestPostId: Flow<Long> =
     prefsDataStore.data.map { it[longPreferencesKey(Keys.LATEST_POST_ID)] ?: 0L }
+
+  val notifyNewPost: Flow<Boolean> =
+    prefsDataStore.data.map { it[booleanPreferencesKey(Keys.NOTIFY_NEW_POST)] ?: true }
 
   suspend fun setInt(key: Preferences.Key<Int>, value: Int) {
     prefsDataStore.edit { prefs -> prefs[key] = value }

@@ -14,6 +14,7 @@ import com.himatifunpad.imazine.core.data.local.APP_THEME_SYSTEM
 import com.himatifunpad.imazine.core.data.local.DataStoreManager
 import com.himatifunpad.imazine.core.data.local.Keys
 import com.himatifunpad.imazine.core.di.PrefsEntryPoint
+import com.himatifunpad.imazine.core.work.LatestPostWorker
 import com.himatifunpad.imazine.databinding.FragmentSettingsBinding
 import com.himatifunpad.imazine.ext.viewBinding
 import com.himatifunpad.imazine.ui.ext.dsl.defaultValue
@@ -99,7 +100,12 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
           summaryOn = getString(R.string.prefs_notify_new_post_on)
           summaryOff = getString(R.string.prefs_notify_new_post_off)
           defaultValue = true
-          onChange {
+          onChange { value ->
+            if (value as Boolean){
+              LatestPostWorker.scheduleWork(requireContext())
+            }else{
+              LatestPostWorker.unScheduleWork(requireContext())
+            }
             // do nothing
             true
           }

@@ -9,5 +9,6 @@ interface PostRepository {
   suspend fun getCategories(): Flow<Result<List<Category>>>
   suspend fun getPost(postId: Long): Flow<Result<Post>>
   suspend fun getLatestPost(): Flow<Result<Post>>
+  fun getLatestPostId() : Flow<Long>
   fun getPosts(categoryId: Int): Flow<PagingData<Post>>
 }
