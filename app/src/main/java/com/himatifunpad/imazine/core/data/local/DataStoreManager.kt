@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -50,6 +51,8 @@ class DataStoreManager @Inject constructor(@ApplicationContext appContext: Conte
 
   val notifyNewPost: Flow<Boolean> =
     prefsDataStore.data.map { it[booleanPreferencesKey(Keys.NOTIFY_NEW_POST)] ?: true }
+
+  val appTheme : Flow<Int> = prefsDataStore.data.map { it[intPreferencesKey(Keys.APP_THEME)] ?: 3}
 
   suspend fun setInt(key: Preferences.Key<Int>, value: Int) {
     prefsDataStore.edit { prefs -> prefs[key] = value }

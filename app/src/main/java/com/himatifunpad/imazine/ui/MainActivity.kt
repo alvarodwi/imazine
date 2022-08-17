@@ -13,6 +13,7 @@ import com.himatifunpad.imazine.R.navigation
 import com.himatifunpad.imazine.R.style
 import com.himatifunpad.imazine.core.data.local.DataStoreManager
 import com.himatifunpad.imazine.core.work.LatestPostWorker
+import com.himatifunpad.imazine.ui.ext.toggleAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import logcat.logcat
@@ -34,6 +35,8 @@ class MainActivity : AppCompatActivity() {
     val inflater = navHostFragment.navController.navInflater
     val graph = inflater.inflate(navigation.graph_main)
     lifecycleScope.launchWhenCreated {
+      toggleAppTheme(prefs.appTheme.first())
+
       // set start destination
       if (isLoggedIn())
         graph.setStartDestination(id.homeScreen)

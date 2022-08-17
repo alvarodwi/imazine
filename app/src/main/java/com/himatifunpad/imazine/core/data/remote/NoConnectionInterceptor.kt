@@ -16,7 +16,7 @@ class NoConnectionInterceptor(
 ) : Interceptor {
   override fun intercept(chain: Chain): Response {
     if (!isConnectionOn() || !isInternetAvailable())
-      throw NoInternetException("You're not connected to the internet")
+      throw NoInternetException()
     return chain.proceed(chain.request())
   }
 

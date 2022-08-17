@@ -5,6 +5,7 @@ import androidx.core.view.isVisible
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.himatifunpad.imazine.R
 import com.himatifunpad.imazine.databinding.ItemLoadStateBinding
 import com.himatifunpad.imazine.ui.ext.viewBinding
 import com.himatifunpad.imazine.ui.adapter.PostLoadStateAdapter.LoadStateViewHolder

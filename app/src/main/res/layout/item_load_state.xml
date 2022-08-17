@@ -4,6 +4,8 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
+  android:minHeight="@dimen/dimen_32dp"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_marginEnd="@dimen/dimen_16dp"
   android:layout_marginBottom="@dimen/dimen_16dp"
   android:orientation="vertical"
@@ -25,11 +27,14 @@
     android:layout_marginTop="@dimen/dimen_4dp"
     android:text="@string/btn_retry" />
 
-  <com.google.android.material.progressindicator.CircularProgressIndicator
+  <com.airbnb.lottie.LottieAnimationView
     android:id="@+id/progress_bar"
-    android:layout_width="2dp"
-    android:layout_height="2dp"
+    android:layout_width="@dimen/dimen_64dp"
+    android:layout_height="@dimen/dimen_64dp"
     android:layout_gravity="center"
     android:indeterminate="true"
-    tools:visibility="gone" />
+    app:lottie_autoPlay="true"
+    app:lottie_fileName="loading.json"
+    app:lottie_loop="true"
+     />
 </LinearLayout>

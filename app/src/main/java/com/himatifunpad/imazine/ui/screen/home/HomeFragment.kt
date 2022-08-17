@@ -8,7 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.work.ListenableWorker.Result.retry
+import androidx.paging.LoadState
 import coil.request.ImageRequest
 import com.himatifunpad.imazine.R
 import com.himatifunpad.imazine.core.data.parcelize
@@ -23,7 +23,9 @@ import com.himatifunpad.imazine.ui.screen.home.HomeViewModel.HomeEvent
 import com.himatifunpad.imazine.util.base.BaseEvent.ShowErrorMessage
 import com.himatifunpad.imazine.util.base.BaseFragment
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
@@ -51,7 +53,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
           }
           is ShowErrorMessage -> {
             toggleLoading(false)
-            showError(event.message)
+            showError(event.message, "alert.json")
             snackbar("Error : ${event.message}")
           }
         }
@@ -71,6 +73,17 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     viewLifecycleOwner.lifecycleScope.launch {
       viewModel.allPosts.collectLatest(postAdapter::submitData)
+    }
+
+    viewLifecycleOwner.lifecycleScope.launch{
+      postAdapter.loadStateFlow.map {it.refresh}
+        .distinctUntilChanged()
+        .collect {
+          if(it is LoadState.NotLoading){
+            if(postAdapter.itemCount < 1)
+              showError("It's empty","empty.json")
+          }
+        }
     }
   }
 
@@ -118,14 +131,16 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
   }
 
   private fun toggleLoading(show: Boolean) {
+    latestPost.content.isVisible = !show
+    latestPost.progressBar.isVisible = show
     swipeRefresh.isRefreshing = show
   }
 
-  private fun showError(message: String) {
+  private fun showError(message: String, lottieFileName : String) {
     binding.error.apply {
       root.isVisible = true
       tvDescription.text = message
-
+      lottieReaction.setAnimation(lottieFileName)
     }
     binding.content.root.isVisible = false
   }
