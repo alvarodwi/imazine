@@ -129,10 +129,10 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     private fun onLogout() {
       viewLifecycleOwner.lifecycleScope.launch {
         prefs.clearUser()
+        findNavController().navigate(
+          SettingsFragmentDirections.actionSettingsToAuth()
+        )
       }
-      findNavController().navigate(
-        SettingsFragmentDirections.actionSettingsToAuth()
-      )
     }
   }
 }
