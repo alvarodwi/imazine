@@ -1,5 +1,6 @@
 plugins {
   id("com.android.application")
+  id("com.google.gms.google-services")
   kotlin("android")
   kotlin("kapt")
   kotlin("plugin.serialization") version LibVersion.kotlin
@@ -7,6 +8,7 @@ plugins {
   id("androidx.navigation.safeargs.kotlin")
   id("dagger.hilt.android.plugin")
   id("com.github.ben-manes.versions") version "0.42.0"
+  id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -68,6 +70,7 @@ dependencies {
   coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${LibVersion.coroutines}")
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${LibVersion.coroutines}")
+  implementation(platform("com.google.firebase:firebase-bom:30.3.1"))
 
   // androidx core
   implementation("androidx.core:core-ktx:1.8.0")
@@ -106,6 +109,11 @@ dependencies {
   implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
   implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
   implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
+
+  // firebase
+  implementation("com.google.firebase:firebase-analytics-ktx")
+  implementation("com.google.firebase:firebase-crashlytics-ktx")
+  implementation("com.google.firebase:firebase-messaging-ktx")
 
   // other library
   implementation("io.coil-kt:coil:2.1.0")

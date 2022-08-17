@@ -8,6 +8,7 @@ import androidx.work.Configuration
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import com.google.firebase.FirebaseApp
 import com.himatifunpad.imazine.core.notification.NotificationUtil
 import com.himatifunpad.imazine.core.work.LatestPostWorker
 import dagger.hilt.android.HiltAndroidApp
