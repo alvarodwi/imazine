@@ -13,7 +13,7 @@ import logcat.logcat
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
-fun Fragment.createSnackbar(
+private fun Fragment.createSnackbar(
   message: String,
   duration: Int,
 ): Snackbar = Snackbar.make(requireView(), message, duration)

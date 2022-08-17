@@ -7,13 +7,11 @@
   android:layout_marginEnd="@dimen/dimen_8dp"
   app:strokeColor="?attr/colorOnBackground"
   app:strokeWidth="1dp">
-
   <TextView
     android:id="@+id/tv_name"
     style="@style/TextAppearance.Imazine.Overline"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="@dimen/dimen_12dp"
     tools:text="Imazine" />
-
 </com.google.android.material.card.MaterialCardView>

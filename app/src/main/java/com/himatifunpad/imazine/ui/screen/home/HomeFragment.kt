@@ -7,15 +7,17 @@ import androidx.appcompat.view.menu.MenuBuilder
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
+import androidx.paging.LoadState.Error
 import coil.request.ImageRequest
 import com.himatifunpad.imazine.R
 import com.himatifunpad.imazine.core.data.parcelize
 import com.himatifunpad.imazine.core.domain.model.Post
 import com.himatifunpad.imazine.databinding.FragmentHomeBinding
-import com.himatifunpad.imazine.ext.viewBinding
 import com.himatifunpad.imazine.ui.adapter.CategoryAdapter
 import com.himatifunpad.imazine.ui.adapter.PostAdapter
 import com.himatifunpad.imazine.ui.ext.snackbar
+import com.himatifunpad.imazine.ui.ext.viewBinding
 import com.himatifunpad.imazine.ui.screen.home.HomeViewModel.HomeEvent
 import com.himatifunpad.imazine.util.base.BaseEvent.ShowErrorMessage
 import com.himatifunpad.imazine.util.base.BaseFragment
@@ -23,6 +25,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import logcat.logcat
 
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
   private val binding by viewBinding<FragmentHomeBinding>()
@@ -67,6 +70,12 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     viewLifecycleOwner.lifecycleScope.launch {
       viewModel.allPosts.collectLatest(postAdapter::submitData)
+    }
+
+    viewLifecycleOwner.lifecycleScope.launch {
+      postAdapter.loadStateFlow.collectLatest { loadState ->
+
+      }
     }
   }
 
@@ -134,7 +143,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     )
   }
 
-  private fun moveToArticleDetail(post : Post) {
+  private fun moveToArticleDetail(post: Post) {
     findNavController().navigate(
       HomeFragmentDirections.actionHomeToArticleDetail(post.parcelize())
     )

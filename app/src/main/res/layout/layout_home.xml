@@ -6,9 +6,21 @@
   android:layout_height="match_parent"
   android:fillViewport="true">
 
-  <androidx.constraintlayout.widget.ConstraintLayout
+  <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/rv_category"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/dimen_12dp"
+      android:clipToPadding="false"
+      android:orientation="horizontal"
+      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+      tools:itemCount="5"
+      tools:listitem="@layout/item_category" />
 
     <TextView
       android:id="@+id/lbl_latest_post"
@@ -17,9 +29,15 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/dimen_16dp"
       android:alpha="?attr/emphasisMediumAlpha"
-      android:text="@string/lbl_latest_post"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/rv_category" />
+      android:text="@string/lbl_latest_post" />
+
+    <include
+      android:id="@+id/latest_post"
+      layout="@layout/item_latest_post"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/dimen_16dp"
+      android:layout_marginEnd="@dimen/dimen_16dp" />
 
     <TextView
       android:id="@+id/lbl_all_posts"
@@ -28,39 +46,13 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/dimen_16dp"
       android:alpha="?attr/emphasisMediumAlpha"
-      android:text="@string/lbl_all_posts"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/latest_post" />
-
-    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/rv_category"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/dimen_12dp"
-      android:clipToPadding="false"
-      android:orientation="horizontal"
-      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      tools:itemCount="5"
-      tools:listitem="@layout/item_category" />
+      android:text="@string/lbl_all_posts" />
 
     <include
       android:id="@+id/all_posts"
       layout="@layout/rv_posts"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/dimen_16dp"
-      android:layout_marginEnd="@dimen/dimen_16dp"
-      app:layout_constraintTop_toBottomOf="@id/lbl_all_posts" />
-
-    <include
-      android:id="@+id/latest_post"
-      layout="@layout/layout_latest_post"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/dimen_16dp"
-      android:layout_marginEnd="@dimen/dimen_16dp"
-      app:layout_constraintTop_toBottomOf="@id/lbl_latest_post" />
-  </androidx.constraintlayout.widget.ConstraintLayout>
+      android:layout_marginTop="@dimen/dimen_16dp" />
+  </LinearLayout>
 </androidx.core.widget.NestedScrollView>

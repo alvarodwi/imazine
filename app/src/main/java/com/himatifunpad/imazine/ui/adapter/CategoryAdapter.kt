@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.himatifunpad.imazine.core.domain.model.Category
 import com.himatifunpad.imazine.databinding.ItemCategoryBinding
-import com.himatifunpad.imazine.ext.viewBinding
+import com.himatifunpad.imazine.ui.ext.viewBinding
 import com.himatifunpad.imazine.ui.adapter.CategoryAdapter.CategoryViewHolder
 import com.himatifunpad.imazine.util.CATEGORY_DIFF
 

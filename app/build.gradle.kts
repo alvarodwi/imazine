@@ -13,7 +13,7 @@ android {
   compileSdk = 32
 
   defaultConfig {
-    applicationId = "com.himatifunpad.imazine1"
+    applicationId = "com.himatifunpad.imazine"
     minSdk = 23
     targetSdk = 32
     versionCode = 1

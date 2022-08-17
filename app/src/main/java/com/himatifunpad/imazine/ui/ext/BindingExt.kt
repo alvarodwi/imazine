@@ -1,4 +1,4 @@
-package com.himatifunpad.imazine.ext
+package com.himatifunpad.imazine.ui.ext
 
 import android.app.Activity
 import android.view.LayoutInflater

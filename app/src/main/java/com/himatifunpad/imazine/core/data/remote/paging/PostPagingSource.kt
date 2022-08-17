@@ -14,7 +14,9 @@ class PostPagingSource(
   private val categoryId: Int? = null
 ) : PagingSource<Int, Post>() {
   override fun getRefreshKey(state: PagingState<Int, Post>): Int? {
-    return state.anchorPosition
+    return state.anchorPosition?.let { anchorPosition ->
+      state.closestPageToPosition(anchorPosition)?.prevKey
+    }
   }
 
   override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Post> {
@@ -24,18 +26,14 @@ class PostPagingSource(
         page = nextPage,
         category = categoryId
       )
+      val pagedResponse = response.body()
+      val data = pagedResponse?.map(PostJson::toModel)
 
-      if (response.isSuccessful) {
-        val postList = response.body() ?: throw IOException("Response is null")
-
-        LoadResult.Page(
-          data = postList.map(PostJson::toModel),
-          prevKey = if (nextPage == 1) null else nextPage - 1,
-          nextKey = if (postList.isEmpty()) null else nextPage + 1
-        )
-      } else {
-        throw IOException("Error ${response.code()}")
-      }
+      LoadResult.Page(
+        data = data.orEmpty(),
+        prevKey = if (nextPage == 1) null else nextPage - 1,
+        nextKey = if (data.isNullOrEmpty()) null else nextPage + 1
+      )
     } catch (ex: HttpException) {
       return LoadResult.Error(ex)
     } catch (ex: IOException) {

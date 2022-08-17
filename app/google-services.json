@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "641822672118",
+    "project_id": "imazine-app",
+    "storage_bucket": "imazine-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:641822672118:android:423b8be76c8f8b1a9098d7",
+        "android_client_info": {
+          "package_name": "com.himatifunpad.imazine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "641822672118-uj4edgrsh0paorrvo3q5aran67s0ljr1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAh11m8sOyRFVAIGVi6QePVqMIjM_V6AQ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "641822672118-uj4edgrsh0paorrvo3q5aran67s0ljr1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

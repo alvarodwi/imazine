@@ -68,7 +68,7 @@ class PostRepositoryImpl @Inject constructor(
 
   override fun getPosts(categoryId: Int): Flow<PagingData<Post>> =
     Pager(
-      PagingConfig(pageSize = 10)
+      PagingConfig(pageSize = 10, initialLoadSize = 10)
     ) {
       PostPagingSource(api, categoryId)
     }.flow

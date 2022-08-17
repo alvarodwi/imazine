@@ -33,7 +33,7 @@ class CoilImageGetter(
           val metrics = textView.resources.displayMetrics
           val margin = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP, 32f, metrics
-          ).roundToInt();
+          ).roundToInt()
           size(metrics.widthPixels - margin)
           target { drawable ->
             drawablePlaceholder.updateDrawable(drawable)

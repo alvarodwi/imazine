@@ -1,7 +1,5 @@
 package com.himatifunpad.imazine.ui.screen.article.detail
 
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.request.ImageRequest
@@ -9,17 +7,11 @@ import com.himatifunpad.imazine.R
 import com.himatifunpad.imazine.core.data.toModel
 import com.himatifunpad.imazine.core.domain.model.Post
 import com.himatifunpad.imazine.databinding.FragmentArticleDetailBinding
-import com.himatifunpad.imazine.ext.viewBinding
+import com.himatifunpad.imazine.ui.ext.viewBinding
 import com.himatifunpad.imazine.ui.ext.imazineDateFormatter
 import com.himatifunpad.imazine.ui.ext.parseHtmlWithImage
-import com.himatifunpad.imazine.ui.ext.snackbar
-import com.himatifunpad.imazine.ui.screen.article.detail.ArticleDetailViewModel.ArticleDetailEvent.ArticleLoaded
-import com.himatifunpad.imazine.util.base.BaseEvent.ShowErrorMessage
 import com.himatifunpad.imazine.util.base.BaseFragment
 import com.himatifunpad.imazine.util.scrapeContent
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -28,10 +20,10 @@ class ArticleDetailFragment : BaseFragment(R.layout.fragment_article_detail) {
   private val args by navArgs<ArticleDetailFragmentArgs>()
 
   private val toolbar get() = binding.toolbar
-  private val img get() = binding.content.ivPostImg
-  private val title get() = binding.content.tvTitle
-  private val content get() = binding.content.tvContent
-  private val date get() = binding.content.tvDate
+  private val img get() = binding.ivPostImg
+  private val title get() = binding.tvTitle
+  private val content get() = binding.tvContent
+  private val date get() = binding.tvDate
 
   override fun setupView() {
     toolbar.setNavigationOnClickListener { findNavController().popBackStack() }

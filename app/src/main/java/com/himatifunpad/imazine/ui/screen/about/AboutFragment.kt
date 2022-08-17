@@ -6,7 +6,7 @@ import androidx.navigation.fragment.findNavController
 import com.himatifunpad.imazine.BuildConfig
 import com.himatifunpad.imazine.R
 import com.himatifunpad.imazine.databinding.FragmentAboutBinding
-import com.himatifunpad.imazine.ext.viewBinding
+import com.himatifunpad.imazine.ui.ext.viewBinding
 import com.himatifunpad.imazine.util.IG_URL
 import com.himatifunpad.imazine.util.LINE_URL
 import com.himatifunpad.imazine.util.LINKTREE_URL

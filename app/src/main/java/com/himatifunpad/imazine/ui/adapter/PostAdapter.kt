@@ -7,7 +7,7 @@ import coil.ImageLoader
 import coil.request.ImageRequest
 import com.himatifunpad.imazine.core.domain.model.Post
 import com.himatifunpad.imazine.databinding.ItemPostBinding
-import com.himatifunpad.imazine.ext.viewBinding
+import com.himatifunpad.imazine.ui.ext.viewBinding
 import com.himatifunpad.imazine.ui.adapter.PostAdapter.PostViewHolder
 import com.himatifunpad.imazine.util.POST_DIFF
 

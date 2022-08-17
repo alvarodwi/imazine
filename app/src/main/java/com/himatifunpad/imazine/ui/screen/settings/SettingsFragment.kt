@@ -11,18 +11,16 @@ import com.himatifunpad.imazine.R
 import com.himatifunpad.imazine.core.data.local.APP_THEME_DARK
 import com.himatifunpad.imazine.core.data.local.APP_THEME_LIGHT
 import com.himatifunpad.imazine.core.data.local.APP_THEME_SYSTEM
-import com.himatifunpad.imazine.core.data.local.DataStoreManager
 import com.himatifunpad.imazine.core.data.local.Keys
 import com.himatifunpad.imazine.core.di.PrefsEntryPoint
 import com.himatifunpad.imazine.core.work.LatestPostWorker
 import com.himatifunpad.imazine.databinding.FragmentSettingsBinding
-import com.himatifunpad.imazine.ext.viewBinding
+import com.himatifunpad.imazine.ui.ext.viewBinding
 import com.himatifunpad.imazine.ui.ext.dsl.defaultValue
 import com.himatifunpad.imazine.ui.ext.dsl.intListPreference
 import com.himatifunpad.imazine.ui.ext.dsl.onChange
 import com.himatifunpad.imazine.ui.ext.dsl.onClick
 import com.himatifunpad.imazine.ui.ext.dsl.preference
-import com.himatifunpad.imazine.ui.ext.dsl.preferenceCategory
 import com.himatifunpad.imazine.ui.ext.dsl.switchPreference
 import com.himatifunpad.imazine.ui.ext.dsl.titleRes
 import com.himatifunpad.imazine.ui.ext.toggleAppTheme
@@ -32,7 +30,6 @@ import kotlinx.coroutines.launch
 
 class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
   private val binding by viewBinding<FragmentSettingsBinding>()
-
 
   private val container get() = binding.container
   private val toolbar get() = binding.toolbar
@@ -46,7 +43,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     }
   }
 
-  class SettingsContainer() : PreferenceFragmentCompat() {
+  class SettingsContainer : PreferenceFragmentCompat() {
     private val mActivity get() = requireActivity()
     private val prefs
       get() = EntryPointAccessors.fromApplication(
@@ -66,57 +63,52 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     private fun setupPreferenceScreen(screen: PreferenceScreen) = with(screen) {
       setTitle(R.string.settings)
 
-      // category general
-      preferenceCategory {
-        titleRes = R.string.prefs_general
+      // app theme
+      intListPreference(activity) {
+        key = Keys.APP_THEME
+        titleRes = R.string.prefs_app_theme
+        entriesRes = arrayOf(
+          R.string.prefs_app_theme_light,
+          R.string.prefs_app_theme_dark,
+          R.string.prefs_app_theme_system,
+        )
+        entryValues = listOf(
+          APP_THEME_LIGHT,
+          APP_THEME_DARK,
+          APP_THEME_SYSTEM
+        )
+        defaultValue = 3
 
-        // app theme
-        intListPreference(activity) {
-          key = Keys.APP_THEME
-          titleRes = R.string.prefs_app_theme
-          entriesRes = arrayOf(
-            R.string.prefs_app_theme_light,
-            R.string.prefs_app_theme_dark,
-            R.string.prefs_app_theme_system,
-          )
-          entryValues = listOf(
-            APP_THEME_LIGHT,
-            APP_THEME_DARK,
-            APP_THEME_SYSTEM
-          )
-          defaultValue = 3
-
-          onChange {
-            toggleAppTheme(it as Int)
-            mActivity.recreate()
-            true
-          }
+        onChange {
+          toggleAppTheme(it as Int)
+          mActivity.recreate()
+          true
         }
+      }
 
-        // notify new post
-        switchPreference {
-          key = Keys.NOTIFY_NEW_POST
-          titleRes = R.string.prefs_notify_new_post
-          summaryOn = getString(R.string.prefs_notify_new_post_on)
-          summaryOff = getString(R.string.prefs_notify_new_post_off)
-          defaultValue = true
-          onChange { value ->
-            if (value as Boolean){
-              LatestPostWorker.scheduleWork(requireContext())
-            }else{
-              LatestPostWorker.unScheduleWork(requireContext())
-            }
-            // do nothing
-            true
+      // notify new post
+      switchPreference {
+        key = Keys.NOTIFY_NEW_POST
+        titleRes = R.string.prefs_notify_new_post
+        summaryOn = getString(R.string.prefs_notify_new_post_on)
+        summaryOff = getString(R.string.prefs_notify_new_post_off)
+        defaultValue = true
+        onChange { value ->
+          if (value as Boolean) {
+            LatestPostWorker.scheduleWork(requireContext())
+          } else {
+            LatestPostWorker.unScheduleWork(requireContext())
           }
+          // do nothing
+          true
         }
+      }
 
-        // logout
-        preference {
-          titleRes = R.string.prefs_logout
-          onClick {
-            launchLogoutDialog()
-          }
+      // logout
+      preference {
+        titleRes = R.string.prefs_logout
+        onClick {
+          launchLogoutDialog()
         }
       }
     }
