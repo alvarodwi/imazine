@@ -4,11 +4,11 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.view.menu.MenuBuilder
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.paging.LoadState
-import androidx.paging.LoadState.Error
+import androidx.work.ListenableWorker.Result.retry
 import coil.request.ImageRequest
 import com.himatifunpad.imazine.R
 import com.himatifunpad.imazine.core.data.parcelize
@@ -16,6 +16,7 @@ import com.himatifunpad.imazine.core.domain.model.Post
 import com.himatifunpad.imazine.databinding.FragmentHomeBinding
 import com.himatifunpad.imazine.ui.adapter.CategoryAdapter
 import com.himatifunpad.imazine.ui.adapter.PostAdapter
+import com.himatifunpad.imazine.ui.adapter.PostLoadStateAdapter
 import com.himatifunpad.imazine.ui.ext.snackbar
 import com.himatifunpad.imazine.ui.ext.viewBinding
 import com.himatifunpad.imazine.ui.screen.home.HomeViewModel.HomeEvent
@@ -25,7 +26,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import logcat.logcat
 
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
   private val binding by viewBinding<FragmentHomeBinding>()
@@ -51,6 +51,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
           }
           is ShowErrorMessage -> {
             toggleLoading(false)
+            showError(event.message)
             snackbar("Error : ${event.message}")
           }
         }
@@ -70,12 +71,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     viewLifecycleOwner.lifecycleScope.launch {
       viewModel.allPosts.collectLatest(postAdapter::submitData)
-    }
-
-    viewLifecycleOwner.lifecycleScope.launch {
-      postAdapter.loadStateFlow.collectLatest { loadState ->
-
-      }
     }
   }
 
@@ -108,10 +103,15 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         moveToArticleDetail(post)
       }
     )
-    rvAllPosts.adapter = postAdapter
+    rvAllPosts.adapter = postAdapter.withLoadStateHeaderAndFooter(
+      header = PostLoadStateAdapter(postAdapter::retry),
+      footer = PostLoadStateAdapter(postAdapter::retry)
+    )
+    binding.error.btnRetry.setOnClickListener { refresh() }
   }
 
   private fun refresh() {
+    hideError()
     toggleLoading(true)
     viewModel.onRefresh()
     postAdapter.refresh()
@@ -119,6 +119,20 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
   private fun toggleLoading(show: Boolean) {
     swipeRefresh.isRefreshing = show
+  }
+
+  private fun showError(message: String) {
+    binding.error.apply {
+      root.isVisible = true
+      tvDescription.text = message
+
+    }
+    binding.content.root.isVisible = false
+  }
+
+  private fun hideError() {
+    binding.error.root.isVisible = false
+    binding.content.root.isVisible = true
   }
 
   private fun updateLatestPost(post: Post) {

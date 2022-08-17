@@ -84,6 +84,7 @@ dependencies {
   implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
   implementation("androidx.paging:paging-runtime-ktx:3.1.1")
   implementation("com.afollestad.material-dialogs:core:3.3.0")
+  implementation("com.airbnb.android:lottie:3.6.0")
 
   //navigation
   implementation("androidx.navigation:navigation-fragment-ktx:${LibVersion.nav}")

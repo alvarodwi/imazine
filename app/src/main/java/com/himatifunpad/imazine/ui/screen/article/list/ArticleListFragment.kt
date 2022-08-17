@@ -13,6 +13,7 @@ import com.himatifunpad.imazine.core.domain.model.Post
 import com.himatifunpad.imazine.databinding.FragmentArticleListBinding
 import com.himatifunpad.imazine.ui.ext.viewBinding
 import com.himatifunpad.imazine.ui.adapter.PostAdapter
+import com.himatifunpad.imazine.ui.adapter.PostLoadStateAdapter
 import com.himatifunpad.imazine.util.base.BaseFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -24,7 +25,6 @@ class ArticleListFragment : BaseFragment(R.layout.fragment_article_list) {
 
   private val toolbar get() = binding.toolbar
   private val rvPosts get() = binding.content.rvPosts
-  private val swipeRefresh get() = binding.swipeRefresh
 
   private lateinit var postAdapter: PostAdapter
 
@@ -34,12 +34,6 @@ class ArticleListFragment : BaseFragment(R.layout.fragment_article_list) {
 
     viewLifecycleOwner.lifecycleScope.launch {
       viewModel.allPosts.collectLatest(postAdapter::submitData)
-    }
-
-    viewLifecycleOwner.lifecycleScope.launch {
-      postAdapter.loadStateFlow.collectLatest { loadState ->
-        swipeRefresh.isRefreshing = loadState.refresh is LoadState.Loading
-      }
     }
   }
 
@@ -52,16 +46,14 @@ class ArticleListFragment : BaseFragment(R.layout.fragment_article_list) {
         moveToArticleDetail(post)
       }
     )
-    rvPosts.adapter = postAdapter
-    swipeRefresh.setOnRefreshListener { refresh() }
+    rvPosts.adapter = postAdapter.withLoadStateHeaderAndFooter(
+      header = PostLoadStateAdapter(postAdapter::retry),
+      footer = PostLoadStateAdapter(postAdapter::retry)
+    )
   }
 
   private fun refresh() {
     postAdapter.refresh()
-  }
-
-  private fun toggleLoading(show: Boolean) {
-    swipeRefresh.isRefreshing = show
   }
 
   private fun moveToArticleDetail(post : Post) {

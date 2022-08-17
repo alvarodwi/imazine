@@ -18,7 +18,7 @@
     <item name="android:statusBarColor">@color/gray_800</item>
 
     <!--Typography-->
-    <item name="fontFamily">@font/montserrat_medium</item>
+    <item name="fontFamily">@font/montserrat</item>
     <item name="textAppearanceHeadline6">@style/TextAppearance.Imazine.Headline6</item>
     <item name="textAppearanceSubtitle1">@style/TextAppearance.Imazine.Subtitle1</item>
     <item name="textAppearanceSubtitle2">@style/TextAppearance.Imazine.Subtitle2</item>

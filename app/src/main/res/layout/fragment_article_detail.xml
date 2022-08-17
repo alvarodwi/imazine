@@ -17,12 +17,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:paddingHorizontal="@dimen/dimen_16dp"
     android:paddingBottom="@dimen/dimen_32dp">
 
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+      android:paddingHorizontal="@dimen/dimen_16dp"
       android:orientation="vertical">
 
       <com.google.android.material.imageview.ShapeableImageView
@@ -59,6 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_32dp"
         android:alpha="?attr/emphasisHighAlpha"
+        android:fontFamily="@font/montserrat_medium"
         android:lineSpacingExtra="@dimen/dimen_12dp"
         tools:text="@tools:sample/lorem/random" />
     </LinearLayout>
