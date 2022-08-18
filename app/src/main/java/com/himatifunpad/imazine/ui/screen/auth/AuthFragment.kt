@@ -6,9 +6,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.himatifunpad.imazine.R
 import com.himatifunpad.imazine.databinding.FragmentAuthBinding
-import com.himatifunpad.imazine.ui.ext.viewBinding
 import com.himatifunpad.imazine.ui.ext.snackbar
 import com.himatifunpad.imazine.ui.ext.trimmedText
+import com.himatifunpad.imazine.ui.ext.viewBinding
 import com.himatifunpad.imazine.ui.screen.auth.AuthViewModel.AuthEvent
 import com.himatifunpad.imazine.util.base.BaseEvent.ShowErrorMessage
 import com.himatifunpad.imazine.util.base.BaseFragment

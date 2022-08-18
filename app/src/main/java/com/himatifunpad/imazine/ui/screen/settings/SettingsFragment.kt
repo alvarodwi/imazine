@@ -7,13 +7,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceScreen
 import com.afollestad.materialdialogs.MaterialDialog
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.ktx.messaging
 import com.himatifunpad.imazine.R
 import com.himatifunpad.imazine.core.data.local.APP_THEME_DARK
 import com.himatifunpad.imazine.core.data.local.APP_THEME_LIGHT
 import com.himatifunpad.imazine.core.data.local.APP_THEME_SYSTEM
 import com.himatifunpad.imazine.core.data.local.Keys
 import com.himatifunpad.imazine.core.di.PrefsEntryPoint
-import com.himatifunpad.imazine.core.work.LatestPostWorker
 import com.himatifunpad.imazine.databinding.FragmentSettingsBinding
 import com.himatifunpad.imazine.ui.ext.viewBinding
 import com.himatifunpad.imazine.ui.ext.dsl.defaultValue
@@ -95,11 +96,10 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         defaultValue = true
         onChange { value ->
           if (value as Boolean) {
-            LatestPostWorker.scheduleWork(requireContext())
+            Firebase.messaging.subscribeToTopic("newpost")
           } else {
-            LatestPostWorker.unScheduleWork(requireContext())
+            Firebase.messaging.unsubscribeFromTopic("newpost")
           }
-          // do nothing
           true
         }
       }
@@ -128,6 +128,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
     private fun onLogout() {
       viewLifecycleOwner.lifecycleScope.launch {
+        Firebase.messaging.unsubscribeFromTopic("newpost")
         prefs.clearUser()
         findNavController().navigate(
           SettingsFragmentDirections.actionSettingsToAuth()
