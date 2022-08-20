@@ -57,6 +57,7 @@ class FCMService : FirebaseMessagingService() {
         }
         val pendingIntent =
           PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        color = getColor(R.color.amber_500)
         setContentIntent(pendingIntent)
         setSmallIcon(R.drawable.ic_logo_notif)
         setContentTitle(data.title)

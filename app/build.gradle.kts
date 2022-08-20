@@ -17,8 +17,8 @@ android {
     applicationId = "com.himatifunpad.imazine"
     minSdk = 23
     targetSdk = 32
-    versionCode = 1
-    versionName = "1.0"
+    versionCode = 5
+    versionName = "3.0.0"
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     vectorDrawables {
@@ -29,6 +29,7 @@ android {
   buildTypes {
     release {
       isMinifyEnabled = true
+      isShrinkResources = true
       proguardFiles(
         getDefaultProguardFile("proguard-android-optimize.txt"),
         "proguard-rules.pro"
