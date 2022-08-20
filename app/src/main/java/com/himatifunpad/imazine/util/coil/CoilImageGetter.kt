@@ -7,16 +7,19 @@ import android.text.Html
 import android.util.TypedValue
 import android.widget.TextView
 import coil.request.ImageRequest
-import com.himatifunpad.imazine.core.di.ImageLoaderEntryPoint
+import com.himatifunpad.imazine.core.di.entrypoint.ImageLoaderEntryPoint
 import dagger.hilt.android.EntryPointAccessors
-import logcat.logcat
 import kotlin.math.roundToInt
+import logcat.logcat
 
 // from https://github.com/Commit451/coil-imagegetter
 
 class CoilImageGetter(
   private val textView: TextView,
 ) : Html.ImageGetter {
+  companion object {
+    private const val MARGIN_SIZE = 32f
+  }
   override fun getDrawable(source: String): Drawable {
     logcat { source }
 
@@ -32,7 +35,9 @@ class CoilImageGetter(
         .apply {
           val metrics = textView.resources.displayMetrics
           val margin = TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP, 32f, metrics
+            TypedValue.COMPLEX_UNIT_DIP,
+            MARGIN_SIZE,
+            metrics
           ).roundToInt()
           size(metrics.widthPixels - margin)
           target { drawable ->

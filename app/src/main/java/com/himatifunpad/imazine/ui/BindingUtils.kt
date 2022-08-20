@@ -5,8 +5,8 @@ import android.os.Looper
 import android.util.ArrayMap
 import android.view.View
 import androidx.viewbinding.ViewBinding
-import logcat.logcat
 import java.lang.reflect.Method
+import logcat.logcat
 
 // from https://medium.com/@hoc081098/viewbinding-delegate-one-line-4d0cdcbf53ba
 internal object MainHandler {

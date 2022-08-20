@@ -11,6 +11,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import logcat.logcat
@@ -19,12 +21,14 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter.Factory
 import retrofit2.Retrofit
-import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 class DataModule {
+  companion object {
+    private const val DEFAULT_TIMEOUT = 5L
+  }
+
   private val wpUrl = "http://himatif.fmipa.unpad.ac.id/wp-json/wp/v2/"
   private val hdaUrl = "https://api.himatif.org/data/v1/"
   private val json = Json {
@@ -34,16 +38,18 @@ class DataModule {
 
   @Singleton
   @Provides
-  fun provideNoConnectionInterceptor(@ApplicationContext appContext: Context): NoConnectionInterceptor =
+  fun provideNoConnectionInterceptor(
+    @ApplicationContext appContext: Context
+  ): NoConnectionInterceptor =
     NoConnectionInterceptor(appContext)
 
   @Singleton
   @Provides
   fun provideHttpClient(netConn: NoConnectionInterceptor): OkHttpClient {
     val builder = OkHttpClient.Builder()
-      .connectTimeout(5, TimeUnit.MINUTES)
-      .readTimeout(5, TimeUnit.MINUTES)
-      .writeTimeout(5, TimeUnit.MINUTES)
+      .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.MINUTES)
+      .readTimeout(DEFAULT_TIMEOUT, TimeUnit.MINUTES)
+      .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.MINUTES)
 
     if (BuildConfig.DEBUG) {
       val logger = HttpLoggingInterceptor { message ->

@@ -2,7 +2,6 @@ package com.himatifunpad.imazine.ui.screen.article.list
 
 import android.os.Bundle
 import android.view.View
-import androidx.annotation.RawRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -47,13 +46,14 @@ class ArticleListFragment : BaseFragment(R.layout.fragment_article_list) {
       }
     }
 
-    viewLifecycleOwner.lifecycleScope.launch{
-      postAdapter.loadStateFlow.map {it.refresh}
+    viewLifecycleOwner.lifecycleScope.launch {
+      postAdapter.loadStateFlow.map { it.refresh }
         .distinctUntilChanged()
         .collect {
-          if(it is LoadState.NotLoading){
-            if(postAdapter.itemCount < 1)
+          if (it is LoadState.NotLoading) {
+            if (postAdapter.itemCount < 1) {
               showError("It's empty")
+            }
           }
         }
     }

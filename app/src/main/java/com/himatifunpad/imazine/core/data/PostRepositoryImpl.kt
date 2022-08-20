@@ -15,10 +15,10 @@ import com.himatifunpad.imazine.core.domain.repository.PostRepository
 import com.himatifunpad.imazine.util.ApiException
 import com.himatifunpad.imazine.util.IMAZINE_CATEGORY
 import com.himatifunpad.imazine.util.NoInternetException
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.json.Json
-import javax.inject.Inject
 
 class PostRepositoryImpl @Inject constructor(
   private val api: WpApiService,
@@ -26,7 +26,10 @@ class PostRepositoryImpl @Inject constructor(
 ) : PostRepository, SafeApiRequest() {
   override suspend fun getCategories(): Flow<Result<List<Category>>> = flow {
     try {
-      val categories = apiRequest({ api.getCategories(page = 1, per_page = 50) }, ::decodePostJson)
+      val categories = apiRequest(
+        { api.getCategories(page = 1, perPage = 50) },
+        ::decodePostJson
+      )
         .map(CategoryJson::toModel)
       emit(Result.success(categories))
     } catch (ex: ApiException) {
@@ -36,33 +39,38 @@ class PostRepositoryImpl @Inject constructor(
     }
   }
 
-  override suspend fun getPost(postId: Long): Flow<Result<Post>> = flow {
-    try {
-      val post = apiRequest({ api.getPost(postId = postId) }, ::decodePostJson).toModel()
-      emit(Result.success(post))
-    } catch (ex: ApiException) {
-      emit(Result.failure(ex))
-    } catch (ex: NoInternetException) {
-      emit(Result.failure(ex))
+  override suspend fun getPost(postId: Long): Flow<Result<Post>> =
+    flow {
+      try {
+        val post = apiRequest(
+          { api.getPost(postId = postId) },
+          ::decodePostJson
+        ).toModel()
+        emit(Result.success(post))
+      } catch (ex: ApiException) {
+        emit(Result.failure(ex))
+      } catch (ex: NoInternetException) {
+        emit(Result.failure(ex))
+      }
     }
-  }
 
-  override suspend fun getLatestPost(): Flow<Result<Post>> = flow {
-    try {
-      val latestPosts = apiRequest(
-        { api.getLatestPost(category = IMAZINE_CATEGORY) },
-        ::decodePostJson
-      ).firstOrNull() ?: throw ApiException("Post data is empty")
+  override suspend fun getLatestPost(): Flow<Result<Post>> =
+    flow {
+      try {
+        val latestPosts = apiRequest(
+          { api.getLatestPost(category = IMAZINE_CATEGORY) },
+          ::decodePostJson
+        ).firstOrNull() ?: throw ApiException("Post data is empty")
 
-      val post = latestPosts.toModel()
-      prefs.setLatestPostId(post.id)
-      emit(Result.success(post))
-    } catch (ex: ApiException) {
-      emit(Result.failure(ex))
-    } catch (ex: NoInternetException) {
-      emit(Result.failure(ex))
+        val post = latestPosts.toModel()
+        prefs.setLatestPostId(post.id)
+        emit(Result.success(post))
+      } catch (ex: ApiException) {
+        emit(Result.failure(ex))
+      } catch (ex: NoInternetException) {
+        emit(Result.failure(ex))
+      }
     }
-  }
 
   override fun getLatestPostId(): Flow<Long> = prefs.latestPostId
 

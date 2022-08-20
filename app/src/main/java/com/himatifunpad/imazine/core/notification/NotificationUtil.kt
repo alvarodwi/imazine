@@ -6,8 +6,6 @@ import android.content.Context
 import android.os.Build
 import androidx.annotation.StringRes
 import androidx.core.app.NotificationManagerCompat
-import com.himatifunpad.imazine.R
-import logcat.logcat
 
 object NotificationUtil {
   object ChannelName {
@@ -21,19 +19,23 @@ object NotificationUtil {
     val channel: String,
   )
 
+  data class NotificationChannelData(
+    @StringRes val id: Int,
+    val name: String,
+    val description: String,
+    val importance: Int,
+    val showBadge: Boolean,
+  )
+
   fun createNotificationChannel(
     context: Context,
-    @StringRes id: Int,
-    name: String,
-    description: String,
-    importance: Int,
-    showBadge: Boolean,
+    channelData: NotificationChannelData
   ) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-      val channelId = context.getString(id)
-      val channel = NotificationChannel(channelId, name, importance)
-      channel.description = description
-      channel.setShowBadge(showBadge)
+      val channelId = context.getString(channelData.id)
+      val channel = NotificationChannel(channelId, channelData.name, channelData.importance)
+      channel.description = channelData.description
+      channel.setShowBadge(channelData.showBadge)
 
       NotificationManagerCompat.from(context)
         .createNotificationChannel(channel)

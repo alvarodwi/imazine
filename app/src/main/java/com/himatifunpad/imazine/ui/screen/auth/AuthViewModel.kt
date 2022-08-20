@@ -9,10 +9,10 @@ import com.himatifunpad.imazine.ui.screen.auth.AuthViewModel.AuthEvent.LoginSucc
 import com.himatifunpad.imazine.util.base.BaseEvent
 import com.himatifunpad.imazine.util.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
@@ -37,11 +37,10 @@ class AuthViewModel @Inject constructor(
         .collect { result ->
           if (result.isSuccess) {
             sendNewEvent(LoginSuccess)
-            if(isPostNotificationOn()){
+            if (isPostNotificationOn()) {
               Firebase.messaging.subscribeToTopic("newpost")
             }
-          }
-          else if (result.isFailure) setErrorMessage(result.exceptionOrNull()?.message)
+          } else if (result.isFailure) setErrorMessage(result.exceptionOrNull()?.message)
         }
     }
 

@@ -16,11 +16,13 @@ class App : Application() {
     // notification channel
     NotificationUtil.createNotificationChannel(
       context = this,
-      id = R.string.new_post_notif_channel_id,
-      name = NotificationUtil.ChannelName.NEW_POST,
-      description = "Notification when a new article is posted",
-      importance = NotificationManagerCompat.IMPORTANCE_HIGH,
-      showBadge = true
+      NotificationUtil.NotificationChannelData(
+        id = R.string.new_post_notif_channel_id,
+        name = NotificationUtil.ChannelName.NEW_POST,
+        description = "Notification when a new article is posted",
+        importance = NotificationManagerCompat.IMPORTANCE_HIGH,
+        showBadge = true
+      )
     )
   }
 }

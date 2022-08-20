@@ -14,9 +14,8 @@ import com.himatifunpad.imazine.core.data.local.APP_THEME_DARK
 import com.himatifunpad.imazine.core.data.local.APP_THEME_LIGHT
 import com.himatifunpad.imazine.core.data.local.APP_THEME_SYSTEM
 import com.himatifunpad.imazine.core.data.local.Keys
-import com.himatifunpad.imazine.core.di.PrefsEntryPoint
+import com.himatifunpad.imazine.core.di.entrypoint.PrefsEntryPoint
 import com.himatifunpad.imazine.databinding.FragmentSettingsBinding
-import com.himatifunpad.imazine.ui.ext.viewBinding
 import com.himatifunpad.imazine.ui.ext.dsl.defaultValue
 import com.himatifunpad.imazine.ui.ext.dsl.intListPreference
 import com.himatifunpad.imazine.ui.ext.dsl.onChange
@@ -25,6 +24,7 @@ import com.himatifunpad.imazine.ui.ext.dsl.preference
 import com.himatifunpad.imazine.ui.ext.dsl.switchPreference
 import com.himatifunpad.imazine.ui.ext.dsl.titleRes
 import com.himatifunpad.imazine.ui.ext.toggleAppTheme
+import com.himatifunpad.imazine.ui.ext.viewBinding
 import com.himatifunpad.imazine.util.base.BaseFragment
 import dagger.hilt.android.EntryPointAccessors
 import kotlinx.coroutines.launch
@@ -68,7 +68,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
       intListPreference(activity) {
         key = Keys.APP_THEME
         titleRes = R.string.prefs_app_theme
-        entriesRes = arrayOf(
+        entriesRes = listOf(
           R.string.prefs_app_theme_light,
           R.string.prefs_app_theme_dark,
           R.string.prefs_app_theme_system,
@@ -78,7 +78,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
           APP_THEME_DARK,
           APP_THEME_SYSTEM
         )
-        defaultValue = 3
+        defaultValue = APP_THEME_SYSTEM
 
         onChange {
           toggleAppTheme(it as Int)

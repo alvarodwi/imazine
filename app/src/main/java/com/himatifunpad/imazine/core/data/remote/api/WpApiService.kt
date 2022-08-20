@@ -11,7 +11,7 @@ interface WpApiService {
   @GET("posts")
   suspend fun getPosts(
     @Query("page") page: Int,
-    @Query("per_page") per_page: Int = 10,
+    @Query("per_page") perPage: Int = 10,
     @Query("categories") category: Int? = null,
     @Query("_embed") embed: String = "wp:term,wp:featuredmedia",
     @Query("_fields") fields: String = "id,date,link,title,slug,content,_links"
@@ -20,7 +20,7 @@ interface WpApiService {
   @GET("posts")
   suspend fun getLatestPost(
     @Query("page") page: Int = 1,
-    @Query("per_page") per_page: Int = 1,
+    @Query("per_page") perPage: Int = 1,
     @Query("categories") category: Int? = null,
     @Query("_embed") embed: String = "wp:term,wp:featuredmedia",
     @Query("_fields") fields: String = "id,date,link,title,slug,content,_links"
@@ -36,7 +36,7 @@ interface WpApiService {
   @GET("categories")
   suspend fun getCategories(
     @Query("page") page: Int,
-    @Query("per_page") per_page: Int = 20,
+    @Query("per_page") perPage: Int = 20,
     @Query("_fields") fields: String = "id,name,slug"
   ): Response<List<CategoryJson>>
 }

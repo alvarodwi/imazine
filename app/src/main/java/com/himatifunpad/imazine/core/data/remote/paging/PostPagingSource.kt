@@ -6,8 +6,8 @@ import com.himatifunpad.imazine.core.data.remote.api.WpApiService
 import com.himatifunpad.imazine.core.data.remote.json.PostJson
 import com.himatifunpad.imazine.core.data.toModel
 import com.himatifunpad.imazine.core.domain.model.Post
-import retrofit2.HttpException
 import java.io.IOException
+import retrofit2.HttpException
 
 class PostPagingSource(
   private val api: WpApiService,
@@ -20,7 +20,7 @@ class PostPagingSource(
   }
 
   override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Post> {
-    return try {
+    try {
       val nextPage = params.key ?: 1
       val response = api.getPosts(
         page = nextPage,
@@ -29,13 +29,13 @@ class PostPagingSource(
       val pagedResponse = response.body()
       val data = pagedResponse?.map(PostJson::toModel)
 
-      LoadResult.Page(
+      return LoadResult.Page(
         data = data.orEmpty(),
         prevKey = if (nextPage == 1) null else nextPage - 1,
         nextKey = if (data.isNullOrEmpty()) null else nextPage + 1
       )
     } catch (ex: HttpException) {
-      return LoadResult.Error(ex)
+      throw IOException(ex)
     } catch (ex: IOException) {
       return LoadResult.Error(ex)
     }

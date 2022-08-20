@@ -14,18 +14,13 @@ class IntListDialogPreference @JvmOverloads constructor(
   activity: Activity?,
   context: Context,
   attrs:
-  AttributeSet? =
-    null
+    AttributeSet? =
+      null
 ) :
   DialogPreference(activity, context, attrs) {
   var entryValues: List<Int> = emptyList()
-  var entryRange: IntRange
-    get() = 0..0
-    set(value) {
-      entryValues = value.toList()
-    }
-  var entriesRes: Array<Int>
-    get() = emptyArray()
+  var entriesRes: List<Int>
+    get() = emptyList()
     set(value) {
       entries = value.map { context.getString(it) }
     }
@@ -38,16 +33,21 @@ class IntListDialogPreference @JvmOverloads constructor(
   }
 
   override fun getSummary(): CharSequence? {
-    if (customSummary != null) return customSummary!!
-    if (key == null) return super.getSummary()
-    val index = entryValues.indexOf(
-      runBlocking {
-        prefs.getInt(intPreferencesKey(key),defValue)
-          .first()
+    return if (customSummary != null) customSummary!!
+    else if (key == null) super.getSummary()
+    else {
+      val index = entryValues.indexOf(
+        runBlocking {
+          prefs.getInt(intPreferencesKey(key), defValue)
+            .first()
+        }
+      )
+      if (entries.isEmpty() || index == -1) {
+        ""
+      } else {
+        entries[index]
       }
-    )
-    return if (entries.isEmpty() || index == -1) ""
-    else entries[index]
+    }
   }
 
   @SuppressLint("CheckResult")
@@ -56,7 +56,7 @@ class IntListDialogPreference @JvmOverloads constructor(
       .apply {
         val default = entryValues.indexOf(
           runBlocking {
-            prefs.getInt(intPreferencesKey(key),defValue)
+            prefs.getInt(intPreferencesKey(key), defValue)
               .first()
           }
         )
@@ -66,10 +66,11 @@ class IntListDialogPreference @JvmOverloads constructor(
           initialSelection = default
         ) { _, pos, _ ->
           val value = entryValues[pos]
-          if (key != null)
+          if (key != null) {
             runBlocking {
               prefs.setInt(intPreferencesKey(key), value)
             }
+          }
           callChangeListener(value)
           this@IntListDialogPreference.summary = this@IntListDialogPreference.summary
           dismiss()

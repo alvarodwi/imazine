@@ -20,7 +20,7 @@ fun Post.scrapeContent(): String {
     } else if (tag == "blockquote") {
       val innerParagraphs = element.select("p")
       for (p in innerParagraphs) {
-        result.append(element.wholeText())
+        result.append(p.wholeText())
       }
     }
   }

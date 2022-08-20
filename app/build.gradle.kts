@@ -7,7 +7,6 @@ plugins {
   id("kotlin-parcelize")
   id("androidx.navigation.safeargs.kotlin")
   id("dagger.hilt.android.plugin")
-  id("com.github.ben-manes.versions") version "0.42.0"
   id("com.google.firebase.crashlytics")
 }
 
@@ -81,7 +80,7 @@ dependencies {
   implementation("androidx.preference:preference-ktx:1.2.0")
   implementation("androidx.work:work-runtime-ktx:2.7.1")
 
-  //ui
+  // ui
   implementation("com.google.android.material:material:1.6.1")
   implementation("androidx.constraintlayout:constraintlayout:2.1.4")
   implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
@@ -89,7 +88,7 @@ dependencies {
   implementation("com.afollestad.material-dialogs:core:3.3.0")
   implementation("com.airbnb.android:lottie:3.6.0")
 
-  //navigation
+  // navigation
   implementation("androidx.navigation:navigation-fragment-ktx:${LibVersion.nav}")
   implementation("androidx.navigation:navigation-ui-ktx:${LibVersion.nav}")
 
@@ -128,28 +127,4 @@ dependencies {
 
 kapt {
   correctErrorTypes = true
-}
-
-// ben-manes versions checking
-fun isNonStable(version: String): Boolean {
-  val stableKeyword = listOf("RELEASE", "FINAL", "GA").any {
-    version.toUpperCase()
-      .contains(it)
-  }
-  val regex = "^[0-9,.v-]+(-r)?$".toRegex()
-  val isStable = stableKeyword || regex.matches(version)
-  return isStable.not()
-}
-
-tasks.withType<com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask> {
-  // reject all non stable versions
-  rejectVersionIf {
-    isNonStable(candidate.version)
-  }
-
-  // optional parameters
-  checkForGradleUpdate = true
-  outputFormatter = "json"
-  outputDir = "build/dependencyUpdates"
-  reportfileName = "report"
 }

@@ -15,8 +15,10 @@ data class PostJson(
 
 @Serializable
 data class PostEmbeddedJson(
-  @SerialName("wp:featuredmedia") val listFeaturedMedia: List<PostFeaturedMediaJson> = emptyList(),
-  @SerialName("wp:term") val listTerm: List<List<CategoryJson>> = emptyList(),
+  @SerialName("wp:featuredmedia")
+  val listFeaturedMedia: List<PostFeaturedMediaJson> = emptyList(),
+  @SerialName("wp:term")
+  val listTerm: List<List<CategoryJson>> = emptyList(),
 )
 
 @Serializable

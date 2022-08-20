@@ -7,17 +7,22 @@ import com.himatifunpad.imazine.core.domain.repository.PostRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import dagger.hilt.android.components.ViewModelComponent
 
 @Module
-@InstallIn(SingletonComponent::class)
-abstract class RepositoryModule {
+@InstallIn(ViewModelComponent::class)
+interface RepositoryModule {
+  /**
+   * @param repo
+   * @return
+   */
   @Binds
-  @Singleton
-  abstract fun authRepository(repo: AuthRepositoryImpl): AuthRepository
+  fun authRepository(repo: AuthRepositoryImpl): AuthRepository
 
+  /**
+   * @param repo
+   * @return
+   */
   @Binds
-  @Singleton
-  abstract fun postRepository(repo: PostRepositoryImpl): PostRepository
+  fun postRepository(repo: PostRepositoryImpl): PostRepository
 }

@@ -1,6 +1,5 @@
-package com.himatifunpad.imazine.core.di
+package com.himatifunpad.imazine.core.di.entrypoint
 
-import coil.ImageLoader
 import com.himatifunpad.imazine.core.data.local.DataStoreManager
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
@@ -9,11 +8,8 @@ import dagger.hilt.components.SingletonComponent
 @EntryPoint
 @InstallIn(SingletonComponent::class)
 interface PrefsEntryPoint {
+  /**
+   * @return
+   */
   fun prefs(): DataStoreManager
-}
-
-@EntryPoint
-@InstallIn(SingletonComponent::class)
-interface ImageLoaderEntryPoint {
-  fun coilLoader(): ImageLoader
 }

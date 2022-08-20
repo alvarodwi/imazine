@@ -9,9 +9,9 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.himatifunpad.imazine.util.coil.CoilImageGetter
-import logcat.logcat
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+import logcat.logcat
 
 private fun Fragment.createSnackbar(
   message: String,
@@ -47,7 +47,7 @@ val imazineDateFormatter: DateTimeFormatter =
 
 // night mode helper
 fun toggleAppTheme(value: Int) {
-  logcat("ext"){ "toggleAppTheme($value)" }
+  logcat("ext") { "toggleAppTheme($value)" }
   AppCompatDelegate.setDefaultNightMode(
     when (value) {
       1 -> AppCompatDelegate.MODE_NIGHT_NO

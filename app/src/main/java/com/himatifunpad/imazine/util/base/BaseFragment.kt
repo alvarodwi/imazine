@@ -6,8 +6,8 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import coil.ImageLoader
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
 import javax.inject.Inject
+import kotlinx.coroutines.Job
 
 @AndroidEntryPoint
 abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
@@ -23,7 +23,8 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
 
   override fun onStop() {
     super.onStop()
-    if (this::eventJob.isInitialized)
+    if (this::eventJob.isInitialized) {
       eventJob.cancel()
+    }
   }
 }

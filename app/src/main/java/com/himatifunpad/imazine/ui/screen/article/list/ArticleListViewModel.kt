@@ -8,8 +8,8 @@ import com.himatifunpad.imazine.core.domain.model.Post
 import com.himatifunpad.imazine.core.domain.repository.PostRepository
 import com.himatifunpad.imazine.util.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
 @HiltViewModel
 class ArticleListViewModel @Inject constructor(

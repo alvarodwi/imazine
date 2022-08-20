@@ -10,9 +10,9 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.himatifunpad.imazine.core.domain.model.User
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
 private val Context.dataStore by preferencesDataStore("prefs")
 
@@ -52,7 +52,8 @@ class DataStoreManager @Inject constructor(@ApplicationContext appContext: Conte
   val notifyNewPost: Flow<Boolean> =
     prefsDataStore.data.map { it[booleanPreferencesKey(Keys.NOTIFY_NEW_POST)] ?: true }
 
-  val appTheme : Flow<Int> = prefsDataStore.data.map { it[intPreferencesKey(Keys.APP_THEME)] ?: 3}
+  val appTheme: Flow<Int> =
+    prefsDataStore.data.map { it[intPreferencesKey(Keys.APP_THEME)] ?: APP_THEME_SYSTEM }
 
   suspend fun setInt(key: Preferences.Key<Int>, value: Int) {
     prefsDataStore.edit { prefs -> prefs[key] = value }

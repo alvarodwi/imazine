@@ -75,13 +75,14 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
       viewModel.allPosts.collectLatest(postAdapter::submitData)
     }
 
-    viewLifecycleOwner.lifecycleScope.launch{
-      postAdapter.loadStateFlow.map {it.refresh}
+    viewLifecycleOwner.lifecycleScope.launch {
+      postAdapter.loadStateFlow.map { it.refresh }
         .distinctUntilChanged()
         .collect {
-          if(it is LoadState.NotLoading){
-            if(postAdapter.itemCount < 1)
-              showError("It's empty","empty.json")
+          if (it is LoadState.NotLoading) {
+            if (postAdapter.itemCount < 1) {
+              showError("It's empty", "empty.json")
+            }
           }
         }
     }
@@ -93,10 +94,14 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     toolbar.setOnMenuItemClickListener {
       when (it.itemId) {
         R.id.item_settings -> {
-          moveToSettings()
+          findNavController().navigate(
+            HomeFragmentDirections.actionHomeToSettings()
+          )
         }
         R.id.item_about -> {
-          moveToAbout()
+          findNavController().navigate(
+            HomeFragmentDirections.actionHomeToAbout()
+          )
         }
       }
       true
@@ -105,7 +110,9 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     categoryAdapter = CategoryAdapter(
       onClick = { id, name ->
-        moveToArticleList(id, name)
+        findNavController().navigate(
+          HomeFragmentDirections.actionHomeToArticleList(id, name)
+        )
       }
     )
     rvCategory.adapter = categoryAdapter
@@ -124,7 +131,11 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
   }
 
   private fun refresh() {
-    hideError()
+    // making sure error layout is hidden
+    binding.error.root.isVisible = false
+    binding.content.root.isVisible = true
+
+    // then refresh the content
     toggleLoading(true)
     viewModel.onRefresh()
     postAdapter.refresh()
@@ -136,18 +147,13 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     swipeRefresh.isRefreshing = show
   }
 
-  private fun showError(message: String, lottieFileName : String) {
+  private fun showError(message: String, lottieFileName: String) {
     binding.error.apply {
       root.isVisible = true
       tvDescription.text = message
       lottieReaction.setAnimation(lottieFileName)
     }
     binding.content.root.isVisible = false
-  }
-
-  private fun hideError() {
-    binding.error.root.isVisible = false
-    binding.content.root.isVisible = true
   }
 
   private fun updateLatestPost(post: Post) {
@@ -166,27 +172,9 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
   }
 
-  private fun moveToArticleList(id: Int, name: String) {
-    findNavController().navigate(
-      HomeFragmentDirections.actionHomeToArticleList(id, name)
-    )
-  }
-
   private fun moveToArticleDetail(post: Post) {
     findNavController().navigate(
       HomeFragmentDirections.actionHomeToArticleDetail(post.parcelize())
-    )
-  }
-
-  private fun moveToAbout() {
-    findNavController().navigate(
-      HomeFragmentDirections.actionHomeToAbout()
-    )
-  }
-
-  private fun moveToSettings() {
-    findNavController().navigate(
-      HomeFragmentDirections.actionHomeToSettings()
     )
   }
 }

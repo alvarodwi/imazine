@@ -1,3 +1,12 @@
+import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.exclude
+import org.jetbrains.dokka.DokkaDefaults.outputDir
+
+plugins {
+  id("com.github.ben-manes.versions") version "0.42.0"
+  id("org.jlleitschuh.gradle.ktlint") version "10.3.0"
+  id("io.gitlab.arturbosch.detekt") version "1.21.0"
+}
+
 buildscript {
   repositories {
     google()
@@ -10,11 +19,79 @@ buildscript {
     classpath("com.google.dagger:hilt-android-gradle-plugin:${LibVersion.hilt}")
     classpath("androidx.navigation:navigation-safe-args-gradle-plugin:${LibVersion.nav}")
     // firebase
-    classpath( "com.google.gms:google-services:4.3.13")
-    classpath( "com.google.firebase:firebase-crashlytics-gradle:2.9.1")
+    classpath("com.google.gms:google-services:4.3.13")
+    classpath("com.google.firebase:firebase-crashlytics-gradle:2.9.1")
+  }
+}
+
+allprojects {
+  // apply ktlint
+  apply(plugin = "org.jlleitschuh.gradle.ktlint")
+
+  // Ktlint configuration for sub-projects
+  ktlint {
+    verbose.set(true)
+    android.set(true)
+
+    // Uncomment below line and run .\gradlew ktlintCheck to see check ktlint experimental rules
+    enableExperimentalRules.set(true)
+
+    reporters {
+      reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.CHECKSTYLE)
+    }
+
+    filter {
+      exclude { element -> element.file.path.contains("generated/") }
+    }
+  }
+}
+
+subprojects {
+  // apply detekt
+  apply(plugin = "io.gitlab.arturbosch.detekt")
+
+  detekt {
+    toolVersion = "1.21.0"
+    config = files("${project.rootDir}/detekt.yml")
+    buildUponDefaultConfig = true
   }
 }
 
 tasks.register("clean", Delete::class) {
   delete(rootProject.buildDir)
+}
+
+// ben-manes versions checking
+fun isNonStable(version: String): Boolean {
+  val stableKeyword = listOf("RELEASE", "FINAL", "GA").any {
+    version.toUpperCase()
+      .contains(it)
+  }
+  val regex = "^[0-9,.v-]+(-r)?$".toRegex()
+  val isStable = stableKeyword || regex.matches(version)
+  return isStable.not()
+}
+
+tasks.withType<com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask> {
+  // reject all non stable versions
+  rejectVersionIf {
+    isNonStable(candidate.version)
+  }
+
+  // optional parameters
+  checkForGradleUpdate = true
+  outputFormatter = "json"
+  outputDir = "build/dependencyUpdates"
+  reportfileName = "report"
+}
+
+// Kotlin DSL
+tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+  reports {
+    xml.required.set(false)
+    html.required.set(true)
+    txt.required.set(false)
+    sarif.required.set(false)
+    md.required.set(false)
+  }
 }

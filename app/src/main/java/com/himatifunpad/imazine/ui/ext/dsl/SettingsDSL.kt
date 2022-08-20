@@ -3,10 +3,7 @@ package com.himatifunpad.imazine.ui.ext.dsl
 import android.app.Activity
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.preference.Preference
-import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceGroup
-import androidx.preference.PreferenceManager
-import androidx.preference.PreferenceScreen
 import androidx.preference.SwitchPreferenceCompat
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import com.himatifunpad.imazine.ui.widget.IntListDialogPreference
@@ -15,40 +12,24 @@ import com.himatifunpad.imazine.ui.widget.IntListDialogPreference
 @Target(AnnotationTarget.TYPE)
 annotation class SettingsDSL
 
-inline fun PreferenceManager.newScreen(block: (@SettingsDSL PreferenceScreen).() -> Unit): PreferenceScreen {
-  return createPreferenceScreen(context).also { it.block() }
-}
-
 inline fun PreferenceGroup.preference(block: (@SettingsDSL Preference).() -> Unit): Preference {
   return initThenAdd(Preference(context), block)
 }
 
-inline fun PreferenceGroup.switchPreference(block: (@SettingsDSL SwitchPreferenceCompat).() -> Unit): SwitchPreferenceCompat {
+inline fun PreferenceGroup.switchPreference(
+  block: (@SettingsDSL SwitchPreferenceCompat).() -> Unit
+): SwitchPreferenceCompat {
   return initThenAdd(SwitchPreferenceCompat(context), block)
 }
 
 inline fun PreferenceGroup.intListPreference(
   activity: Activity?,
   block: (
-  @SettingsDSL
-  IntListDialogPreference
+    @SettingsDSL
+    IntListDialogPreference
   ).() -> Unit
-):
-  IntListDialogPreference {
+): IntListDialogPreference {
   return initThenAdd(IntListDialogPreference(activity, context), block)
-}
-
-inline fun PreferenceScreen.preferenceCategory(block: (@SettingsDSL PreferenceCategory).() -> Unit): PreferenceCategory {
-  return addThenInit(
-    PreferenceCategory(context).apply {
-      isIconSpaceReserved = false
-    },
-    block
-  )
-}
-
-inline fun PreferenceScreen.preferenceScreen(block: (@SettingsDSL PreferenceScreen).() -> Unit): PreferenceScreen {
-  return addThenInit(preferenceManager.createPreferenceScreen(context), block)
 }
 
 inline fun <P : Preference> PreferenceGroup.initThenAdd(

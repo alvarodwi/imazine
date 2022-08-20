@@ -12,7 +12,6 @@ import com.himatifunpad.imazine.ui.ext.viewBinding
 import com.himatifunpad.imazine.ui.screen.auth.AuthViewModel.AuthEvent
 import com.himatifunpad.imazine.util.base.BaseEvent.ShowErrorMessage
 import com.himatifunpad.imazine.util.base.BaseFragment
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -33,7 +32,6 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
           AuthEvent.LoginSuccess -> {
             toggleLoading(false)
             snackbar("Login Success")
-            delay(1000)
             moveToHome()
           }
           is ShowErrorMessage -> {

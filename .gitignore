@@ -30,7 +30,6 @@ key.properties
 *.iml
 .idea/*
 !.idea/copyright
-!.idea/codeStyles
 
 # Gradle cache
 .gradle

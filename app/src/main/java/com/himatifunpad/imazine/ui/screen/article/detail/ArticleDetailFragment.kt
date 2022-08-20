@@ -7,9 +7,9 @@ import com.himatifunpad.imazine.R
 import com.himatifunpad.imazine.core.data.toModel
 import com.himatifunpad.imazine.core.domain.model.Post
 import com.himatifunpad.imazine.databinding.FragmentArticleDetailBinding
-import com.himatifunpad.imazine.ui.ext.viewBinding
 import com.himatifunpad.imazine.ui.ext.imazineDateFormatter
 import com.himatifunpad.imazine.ui.ext.parseHtmlWithImage
+import com.himatifunpad.imazine.ui.ext.viewBinding
 import com.himatifunpad.imazine.util.base.BaseFragment
 import com.himatifunpad.imazine.util.scrapeContent
 import java.time.LocalDate

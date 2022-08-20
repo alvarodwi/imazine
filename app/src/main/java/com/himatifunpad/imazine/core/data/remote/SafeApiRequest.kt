@@ -4,7 +4,7 @@ import com.himatifunpad.imazine.util.ApiException
 import org.json.JSONException
 import retrofit2.Response
 
-abstract class SafeApiRequest {
+open class SafeApiRequest {
   suspend fun <T : Any> apiRequest(
     call: suspend () -> Response<T>,
     decodeJson: suspend (String) -> String
