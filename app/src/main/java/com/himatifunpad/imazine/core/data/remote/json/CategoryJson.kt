@@ -7,5 +7,5 @@ import kotlinx.serialization.Serializable
 data class CategoryJson(
   @SerialName("id") val id: Int = 0,
   @SerialName("name") val name: String = "",
-  @SerialName("slug") val slug: String = "",
+  @SerialName("slug") val slug: String = ""
 )

@@ -36,7 +36,7 @@ fun CategoryJson.toModel() =
   Category(
     id = id,
     name = name,
-    slug = slug,
+    slug = slug
   )
 
 fun ParcelizedPost.toModel() =

@@ -13,7 +13,7 @@ import com.himatifunpad.imazine.util.POST_DIFF
 
 class PostAdapter(
   private val imageLoader: ImageLoader,
-  private val onClick: (Post) -> Unit,
+  private val onClick: (Post) -> Unit
 ) :
   PagingDataAdapter<Post, PostViewHolder>(POST_DIFF) {
   inner class PostViewHolder(private val binding: ItemPostBinding) :

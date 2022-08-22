@@ -9,13 +9,13 @@ import android.widget.TextView
 import coil.request.ImageRequest
 import com.himatifunpad.imazine.core.di.entrypoint.ImageLoaderEntryPoint
 import dagger.hilt.android.EntryPointAccessors
-import kotlin.math.roundToInt
 import logcat.logcat
+import kotlin.math.roundToInt
 
 // from https://github.com/Commit451/coil-imagegetter
 
 class CoilImageGetter(
-  private val textView: TextView,
+  private val textView: TextView
 ) : Html.ImageGetter {
   companion object {
     private const val MARGIN_SIZE = 32f

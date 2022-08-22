@@ -71,7 +71,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         entriesRes = listOf(
           R.string.prefs_app_theme_light,
           R.string.prefs_app_theme_dark,
-          R.string.prefs_app_theme_system,
+          R.string.prefs_app_theme_system
         )
         entryValues = listOf(
           APP_THEME_LIGHT,

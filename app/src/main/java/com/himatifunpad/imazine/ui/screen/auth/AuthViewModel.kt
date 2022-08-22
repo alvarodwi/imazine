@@ -9,10 +9,10 @@ import com.himatifunpad.imazine.ui.screen.auth.AuthViewModel.AuthEvent.LoginSucc
 import com.himatifunpad.imazine.util.base.BaseEvent
 import com.himatifunpad.imazine.util.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(

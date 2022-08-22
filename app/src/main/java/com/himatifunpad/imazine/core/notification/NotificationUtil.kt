@@ -16,7 +16,7 @@ object NotificationUtil {
     val id: Int = 0,
     val title: String = "",
     val message: String = "",
-    val channel: String,
+    val channel: String
   )
 
   data class NotificationChannelData(
@@ -24,7 +24,7 @@ object NotificationUtil {
     val name: String,
     val description: String,
     val importance: Int,
-    val showBadge: Boolean,
+    val showBadge: Boolean
   )
 
   fun createNotificationChannel(

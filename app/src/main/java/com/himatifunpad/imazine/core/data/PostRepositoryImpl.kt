@@ -15,14 +15,14 @@ import com.himatifunpad.imazine.core.domain.repository.PostRepository
 import com.himatifunpad.imazine.util.ApiException
 import com.himatifunpad.imazine.util.IMAZINE_CATEGORY
 import com.himatifunpad.imazine.util.NoInternetException
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.json.Json
+import javax.inject.Inject
 
 class PostRepositoryImpl @Inject constructor(
   private val api: WpApiService,
-  private val prefs: DataStoreManager,
+  private val prefs: DataStoreManager
 ) : PostRepository, SafeApiRequest() {
   override suspend fun getCategories(): Flow<Result<List<Category>>> = flow {
     try {

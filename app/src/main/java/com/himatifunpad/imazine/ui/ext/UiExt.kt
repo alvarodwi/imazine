@@ -9,18 +9,18 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.himatifunpad.imazine.util.coil.CoilImageGetter
+import logcat.logcat
 import java.time.format.DateTimeFormatter
 import java.util.Locale
-import logcat.logcat
 
 private fun Fragment.createSnackbar(
   message: String,
-  duration: Int,
+  duration: Int
 ): Snackbar = Snackbar.make(requireView(), message, duration)
 
 fun Fragment.snackbar(
   message: String,
-  duration: Int = Snackbar.LENGTH_SHORT,
+  duration: Int = Snackbar.LENGTH_SHORT
 ) {
   createSnackbar(message, duration).show()
 }

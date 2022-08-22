@@ -3,8 +3,8 @@ import org.jetbrains.dokka.DokkaDefaults.outputDir
 
 plugins {
   id("com.github.ben-manes.versions") version "0.42.0"
-  id("org.jlleitschuh.gradle.ktlint") version "10.3.0"
   id("io.gitlab.arturbosch.detekt") version "1.21.0"
+  id("org.jmailen.kotlinter") version "3.11.1"
 }
 
 buildscript {
@@ -26,23 +26,14 @@ buildscript {
 
 allprojects {
   // apply ktlint
-  apply(plugin = "org.jlleitschuh.gradle.ktlint")
+  apply(plugin = "org.jmailen.kotlinter")
 
   // Ktlint configuration for sub-projects
-  ktlint {
-    verbose.set(true)
-    android.set(true)
-
-    // Uncomment below line and run .\gradlew ktlintCheck to see check ktlint experimental rules
-    enableExperimentalRules.set(true)
-
-    reporters {
-      reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.CHECKSTYLE)
-    }
-
-    filter {
-      exclude { element -> element.file.path.contains("generated/") }
-    }
+  kotlinter {
+    ignoreFailures = false
+    reporters = arrayOf("checkstyle", "plain")
+    experimentalRules = false
+    disabledRules = emptyArray()
   }
 }
 

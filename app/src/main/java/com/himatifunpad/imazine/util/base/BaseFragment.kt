@@ -6,8 +6,8 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import coil.ImageLoader
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 import kotlinx.coroutines.Job
+import javax.inject.Inject
 
 @AndroidEntryPoint
 abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {

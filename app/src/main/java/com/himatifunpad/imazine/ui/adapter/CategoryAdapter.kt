@@ -10,7 +10,7 @@ import com.himatifunpad.imazine.ui.ext.viewBinding
 import com.himatifunpad.imazine.util.CATEGORY_DIFF
 
 class CategoryAdapter(
-  private val onClick: (Int, String) -> Unit,
+  private val onClick: (Int, String) -> Unit
 ) : ListAdapter<Category, CategoryViewHolder>(CATEGORY_DIFF) {
 
   inner class CategoryViewHolder(private val binding: ItemCategoryBinding) :

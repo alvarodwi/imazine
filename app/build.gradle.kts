@@ -70,7 +70,7 @@ dependencies {
   coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${LibVersion.coroutines}")
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${LibVersion.coroutines}")
-  implementation(platform("com.google.firebase:firebase-bom:30.3.1"))
+  implementation(platform("com.google.firebase:firebase-bom:30.3.2"))
 
   // androidx core
   implementation("androidx.core:core-ktx:1.8.0")
@@ -87,7 +87,7 @@ dependencies {
   implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
   implementation("androidx.paging:paging-runtime-ktx:3.1.1")
   implementation("com.afollestad.material-dialogs:core:3.3.0")
-  implementation("com.airbnb.android:lottie:3.6.0")
+  implementation("com.airbnb.android:lottie:5.2.0")
 
   // navigation
   implementation("androidx.navigation:navigation-fragment-ktx:${LibVersion.nav}")
@@ -106,7 +106,7 @@ dependencies {
 
   // networking
   implementation("com.squareup.retrofit2:retrofit:2.9.0")
-  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
+  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
   implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
   implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
 
@@ -116,7 +116,7 @@ dependencies {
   implementation("com.google.firebase:firebase-messaging-ktx")
 
   // other library
-  implementation("io.coil-kt:coil:2.1.0")
+  implementation("io.coil-kt:coil:2.2.0")
   implementation("org.jsoup:jsoup:1.15.2")
   implementation("com.squareup.logcat:logcat:0.1")
 

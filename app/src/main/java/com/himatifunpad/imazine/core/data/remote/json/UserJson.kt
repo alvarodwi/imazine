@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class UserJson(
   val npm: String = "",
-  val nama: String = "",
+  val nama: String = ""
 )

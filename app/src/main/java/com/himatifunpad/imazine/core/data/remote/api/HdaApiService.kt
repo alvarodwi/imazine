@@ -11,6 +11,6 @@ interface HdaApiService {
   @POST("user/login")
   suspend fun login(
     @Field("username") username: String,
-    @Field("password") password: String,
+    @Field("password") password: String
   ): Response<AuthJson>
 }

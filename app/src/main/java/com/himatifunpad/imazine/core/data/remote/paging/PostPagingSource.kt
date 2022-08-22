@@ -6,8 +6,8 @@ import com.himatifunpad.imazine.core.data.remote.api.WpApiService
 import com.himatifunpad.imazine.core.data.remote.json.PostJson
 import com.himatifunpad.imazine.core.data.toModel
 import com.himatifunpad.imazine.core.domain.model.Post
-import java.io.IOException
 import retrofit2.HttpException
+import java.io.IOException
 
 class PostPagingSource(
   private val api: WpApiService,

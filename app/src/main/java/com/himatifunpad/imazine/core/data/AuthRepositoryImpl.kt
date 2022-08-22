@@ -8,14 +8,14 @@ import com.himatifunpad.imazine.core.domain.model.User
 import com.himatifunpad.imazine.core.domain.repository.AuthRepository
 import com.himatifunpad.imazine.util.ApiException
 import com.himatifunpad.imazine.util.NoInternetException
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.json.Json
+import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
   private val api: HdaApiService,
-  private val prefs: DataStoreManager,
+  private val prefs: DataStoreManager
 ) : AuthRepository, SafeApiRequest() {
   override suspend fun login(username: String, password: String): Flow<Result<User>> = flow {
     try {

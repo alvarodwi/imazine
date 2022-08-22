@@ -13,8 +13,8 @@ import com.himatifunpad.imazine.R
 import com.himatifunpad.imazine.core.data.local.DataStoreManager
 import com.himatifunpad.imazine.ui.ext.toggleAppTheme
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 import kotlinx.coroutines.flow.first
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

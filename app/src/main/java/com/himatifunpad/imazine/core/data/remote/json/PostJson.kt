@@ -18,22 +18,22 @@ data class PostEmbeddedJson(
   @SerialName("wp:featuredmedia")
   val listFeaturedMedia: List<PostFeaturedMediaJson> = emptyList(),
   @SerialName("wp:term")
-  val listTerm: List<List<CategoryJson>> = emptyList(),
+  val listTerm: List<List<CategoryJson>> = emptyList()
 )
 
 @Serializable
 data class PostFeaturedMediaJson(
   @SerialName("alt_text") val altText: String = "",
-  @SerialName("source_url") val sourceUrl: String = "",
+  @SerialName("source_url") val sourceUrl: String = ""
 )
 
 @Serializable
 data class RenderedJson(
-  @SerialName("rendered") val rendered: String = "",
+  @SerialName("rendered") val rendered: String = ""
 )
 
 @Serializable
 data class PostErrorJson(
   val code: String = "",
-  val message: String = "",
+  val message: String = ""
 )

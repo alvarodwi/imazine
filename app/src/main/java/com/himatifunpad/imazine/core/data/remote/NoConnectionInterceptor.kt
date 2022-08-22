@@ -4,14 +4,14 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import com.himatifunpad.imazine.util.NoInternetException
-import java.io.IOException
-import java.net.InetSocketAddress
-import java.net.Socket
 import logcat.asLog
 import logcat.logcat
 import okhttp3.Interceptor
 import okhttp3.Interceptor.Chain
 import okhttp3.Response
+import java.io.IOException
+import java.net.InetSocketAddress
+import java.net.Socket
 
 class NoConnectionInterceptor(
   private val context: Context

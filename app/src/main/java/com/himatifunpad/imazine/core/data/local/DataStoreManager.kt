@@ -10,9 +10,9 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.himatifunpad.imazine.core.domain.model.User
 import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 private val Context.dataStore by preferencesDataStore("prefs")
 
@@ -36,7 +36,7 @@ class DataStoreManager @Inject constructor(@ApplicationContext appContext: Conte
   val user: Flow<User> = prefsDataStore.data.map { prefs ->
     User(
       nama = prefs[stringPreferencesKey(Keys.NAMA)] ?: "",
-      npm = prefs[stringPreferencesKey(Keys.NPM)] ?: "",
+      npm = prefs[stringPreferencesKey(Keys.NPM)] ?: ""
     )
   }
 

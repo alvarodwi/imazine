@@ -11,11 +11,11 @@ import com.himatifunpad.imazine.util.IMAZINE_CATEGORY
 import com.himatifunpad.imazine.util.base.BaseEvent
 import com.himatifunpad.imazine.util.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
