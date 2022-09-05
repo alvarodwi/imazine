@@ -1,9 +1,14 @@
 package com.himatifunpad.imazine.ui.screen.auth
 
+import android.util.StatsLog.logEvent
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import com.himatifunpad.imazine.R
 import com.himatifunpad.imazine.databinding.FragmentAuthBinding
 import com.himatifunpad.imazine.ui.ext.snackbar
@@ -31,6 +36,9 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
         when (event) {
           AuthEvent.LoginSuccess -> {
             toggleLoading(false)
+            Firebase.analytics.logEvent(FirebaseAnalytics.Event.LOGIN) {
+              param(FirebaseAnalytics.Param.METHOD, "himatif")
+            }
             snackbar("Login Success")
             moveToHome()
           }

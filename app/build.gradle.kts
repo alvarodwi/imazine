@@ -70,7 +70,7 @@ dependencies {
   coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${LibVersion.coroutines}")
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${LibVersion.coroutines}")
-  implementation(platform("com.google.firebase:firebase-bom:30.3.2"))
+  implementation(platform("com.google.firebase:firebase-bom:30.4.0"))
 
   // androidx core
   implementation("androidx.core:core-ktx:1.8.0")
@@ -117,7 +117,7 @@ dependencies {
 
   // other library
   implementation("io.coil-kt:coil:2.2.0")
-  implementation("org.jsoup:jsoup:1.15.2")
+  implementation("org.jsoup:jsoup:1.15.3")
   implementation("com.squareup.logcat:logcat:0.1")
 
   // testing
